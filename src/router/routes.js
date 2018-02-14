@@ -17,6 +17,7 @@ import Classify from '../component/classIfy/classify'
 import Product from '../component/product/product'
 import productDetails from '../component/productDetails/productDetails'
 import productBj from '../component/productBJ/productBJ'
+import orderDetails from '../component/orderDetail/orderDetail'
 class Routers extends Component {
     render() {
         return (
@@ -35,6 +36,8 @@ class Routers extends Component {
                     <Route path="/userInfos" component={UserInfos}>
                     </Route>
                     <Route path="/order" component={Order}>
+                    </Route>
+                    <Route path="/orderDetails" component={orderDetails}>
                     </Route>
                     <Route path="/classify" component={Classify}>
                     </Route>

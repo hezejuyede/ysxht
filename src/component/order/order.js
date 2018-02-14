@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
 import './order.less'
 import Header from '../../base/header/herder'
 import Footer from '../../base/footer/footer'
@@ -38,103 +39,123 @@ class order extends Component {
                         <div className="myOrder-list-bottom">
                             <div className="myOrder-list-template">
                                 <div className="myOrder-list-template-number">
-                                    15434567890
+                                    <NavLink to="/orderDetails">15434567890</NavLink>
                                 </div>
                                 <div className="myOrder-list-template-sjr">七七</div>
                                 <div className="myOrder-list-template-state">已支付</div>
                                 <div className="myOrder-list-template-price">￥199</div>
                                 <div className="myOrder-list-template-time">2018-1-21 08:08:08</div>
-                                <div className="myOrder-list-template-cz">操作</div>
+                                <div className="myOrder-list-template-cz">
+                                    <NavLink to="/orderDetails">操作</NavLink>
+                                </div>
                             </div>
                             <div className="myOrder-list-template">
                                 <div className="myOrder-list-template-number">
-                                    15434567890
+                                    <NavLink to="/orderDetails">15434567890</NavLink>
                                 </div>
                                 <div className="myOrder-list-template-sjr">七七</div>
                                 <div className="myOrder-list-template-state">已支付</div>
                                 <div className="myOrder-list-template-price">￥199</div>
                                 <div className="myOrder-list-template-time">2018-1-21 08:08:08</div>
-                                <div className="myOrder-list-template-cz">操作</div>
+                                <div className="myOrder-list-template-cz">
+                                    <NavLink to="/orderDetails">操作</NavLink>
+                                </div>
                             </div>
                             <div className="myOrder-list-template">
                                 <div className="myOrder-list-template-number">
-                                    15434567890
+                                    <NavLink to="/orderDetails">15434567890</NavLink>
                                 </div>
                                 <div className="myOrder-list-template-sjr">七七</div>
                                 <div className="myOrder-list-template-state">已支付</div>
                                 <div className="myOrder-list-template-price">￥199</div>
                                 <div className="myOrder-list-template-time">2018-1-21 08:08:08</div>
-                                <div className="myOrder-list-template-cz">操作</div>
+                                <div className="myOrder-list-template-cz">
+                                    <NavLink to="/orderDetails">操作</NavLink>
+                                </div>
                             </div>
                             <div className="myOrder-list-template">
                                 <div className="myOrder-list-template-number">
-                                    15434567890
+                                    <NavLink to="/orderDetails">15434567890</NavLink>
                                 </div>
                                 <div className="myOrder-list-template-sjr">七七</div>
                                 <div className="myOrder-list-template-state">已支付</div>
                                 <div className="myOrder-list-template-price">￥199</div>
                                 <div className="myOrder-list-template-time">2018-1-21 08:08:08</div>
-                                <div className="myOrder-list-template-cz">操作</div>
+                                <div className="myOrder-list-template-cz">
+                                    <NavLink to="/orderDetails">操作</NavLink>
+                                </div>
                             </div>
                             <div className="myOrder-list-template">
                                 <div className="myOrder-list-template-number">
-                                    15434567890
+                                    <NavLink to="/orderDetails">15434567890</NavLink>
                                 </div>
                                 <div className="myOrder-list-template-sjr">七七</div>
                                 <div className="myOrder-list-template-state">已支付</div>
                                 <div className="myOrder-list-template-price">￥199</div>
                                 <div className="myOrder-list-template-time">2018-1-21 08:08:08</div>
-                                <div className="myOrder-list-template-cz">操作</div>
+                                <div className="myOrder-list-template-cz">
+                                    <NavLink to="/orderDetails">操作</NavLink>
+                                </div>
                             </div>
                             <div className="myOrder-list-template">
                                 <div className="myOrder-list-template-number">
-                                    15434567890
+                                    <NavLink to="/orderDetails">15434567890</NavLink>
                                 </div>
                                 <div className="myOrder-list-template-sjr">七七</div>
                                 <div className="myOrder-list-template-state">已支付</div>
                                 <div className="myOrder-list-template-price">￥199</div>
                                 <div className="myOrder-list-template-time">2018-1-21 08:08:08</div>
-                                <div className="myOrder-list-template-cz">操作</div>
+                                <div className="myOrder-list-template-cz">
+                                    <NavLink to="/orderDetails">操作</NavLink>
+                                </div>
                             </div>
                             <div className="myOrder-list-template">
                                 <div className="myOrder-list-template-number">
-                                    15434567890
+                                    <NavLink to="/orderDetails">15434567890</NavLink>
                                 </div>
                                 <div className="myOrder-list-template-sjr">七七</div>
                                 <div className="myOrder-list-template-state">已支付</div>
                                 <div className="myOrder-list-template-price">￥199</div>
                                 <div className="myOrder-list-template-time">2018-1-21 08:08:08</div>
-                                <div className="myOrder-list-template-cz">操作</div>
+                                <div className="myOrder-list-template-cz">
+                                    <NavLink to="/orderDetails">操作</NavLink>
+                                </div>
                             </div>
                             <div className="myOrder-list-template">
                                 <div className="myOrder-list-template-number">
-                                    15434567890
+                                    <NavLink to="/orderDetails">15434567890</NavLink>
                                 </div>
                                 <div className="myOrder-list-template-sjr">七七</div>
                                 <div className="myOrder-list-template-state">已支付</div>
                                 <div className="myOrder-list-template-price">￥199</div>
                                 <div className="myOrder-list-template-time">2018-1-21 08:08:08</div>
-                                <div className="myOrder-list-template-cz">操作</div>
+                                <div className="myOrder-list-template-cz">
+                                    <NavLink to="/orderDetails">操作</NavLink>
+                                </div>
                             </div>
                             <div className="myOrder-list-template">
                                 <div className="myOrder-list-template-number">
-                                    15434567890
+                                    <NavLink to="/orderDetails">15434567890</NavLink>
                                 </div>
                                 <div className="myOrder-list-template-sjr">七七</div>
                                 <div className="myOrder-list-template-state">已支付</div>
                                 <div className="myOrder-list-template-price">￥199</div>
                                 <div className="myOrder-list-template-time">2018-1-21 08:08:08</div>
-                                <div className="myOrder-list-template-cz">操作</div>
+                                <div className="myOrder-list-template-cz">
+                                    <NavLink to="/orderDetails">操作</NavLink>
+                                </div>
                             </div>
                             <div className="myOrder-list-template">
                                 <div className="myOrder-list-template-number">
-                                    15434567890
+                                    <NavLink to="/orderDetails">15434567890</NavLink>
                                 </div>
                                 <div className="myOrder-list-template-sjr">七七</div>
                                 <div className="myOrder-list-template-state">已支付</div>
                                 <div className="myOrder-list-template-price">￥199</div>
                                 <div className="myOrder-list-template-time">2018-1-21 08:08:08</div>
-                                <div className="myOrder-list-template-cz">操作</div>
+                                <div className="myOrder-list-template-cz">
+                                    <NavLink to="/orderDetails">操作</NavLink>
+                                </div>
                             </div>
                         </div>
 
