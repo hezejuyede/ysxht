@@ -11,8 +11,8 @@ class orderDetail extends Component {
                 <Header/>
                 <Left/>
                 <div className="myOrderDetail">
-                    <div className=""></div>
-                    <div className=""></div>
+                    <div className="myOrderDetail-top"></div>
+                    <div className="myOrderDetail-bottom"></div>
                 </div>
                 <Footer/>
             </div>
