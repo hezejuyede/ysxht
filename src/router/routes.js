@@ -6,18 +6,18 @@ import {
     Redirect,
     Link
 } from 'react-router-dom';
-import Home from '../component/home/home';
-import Register from '../component/register/register'
-import Login from '../component/login/login'
-import setUp from '../component/setUp/setUp'
-import Message from '../component/message/message'
-import UserInfos from '../component/userInfos/userInfos'
-import Order from '../component/order/order'
-import Classify from '../component/classIfy/classify'
-import Product from '../component/product/product'
-import productDetails from '../component/productDetails/productDetails'
-import productBj from '../component/productBJ/productBJ'
-import orderDetails from '../component/orderDetail/orderDetail'
+import Home from '../containers/home/home';
+import Register from '../containers/register/register'
+import Login from '../containers/login/login'
+import setUp from '../containers/setUp/setUp'
+import Message from '../containers/message/message'
+import UserInfos from '../containers/userInfos/userInfos'
+import Order from '../containers/order/order'
+import Classify from '../containers/classIfy/classify'
+import Product from '../containers/product/product'
+import productDetails from '../containers/productDetails/productDetails'
+import productBj from '../containers/productBJ/productBJ'
+import orderDetails from '../containers/orderDetail/orderDetail'
 class Routers extends Component {
     render() {
         return (
