@@ -21,7 +21,7 @@ import orderDetails from '../containers/orderDetail/orderDetail'
 class Routers extends Component {
     render() {
         return (
-            <Router>
+            <Router history={this.props.history}>
                 <Switch>
                     <Route path="/home" component={Home}>
                     </Route>

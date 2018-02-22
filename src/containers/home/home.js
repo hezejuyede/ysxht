@@ -3,7 +3,6 @@ import './home.less'
 import Header from '../../component/header/herder'
 import Footer from '../../component/footer/footer'
 import Left from '../../component/left/left'
-import ReactDOM from 'react-dom';
 class home extends Component {
     render() {
 

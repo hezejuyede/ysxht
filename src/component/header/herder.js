@@ -1,6 +1,6 @@
 import React from "react";
 import logo from '../../common/imgs/logo.png'
-import {BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import './header.less'
 
 const herder = (props) => {
@@ -83,7 +83,6 @@ const herder = (props) => {
 
     function AdmLogin(props) {
         const state = props.state;
-        console.log(props.state);
         if (props.state === 'admsStae') {
             return <Login/>
         } else {

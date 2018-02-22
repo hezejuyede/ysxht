@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import './product.less'
 import Header from '../../component/header/herder'
 import Footer from '../../component/footer/footer'

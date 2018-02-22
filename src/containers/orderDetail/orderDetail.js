@@ -1,13 +1,27 @@
 import React, {Component} from 'react';
 import './orderDetails.less'
 import axios from 'axios';
+import PureRenderMixin from 'react-addons-pure-render-mixin'
+
+
 import Header from '../../component/header/herder'
 import Footer from '../../component/footer/footer'
 import Left from '../../component/left/left'
 
 
 class orderDetail extends Component {
+    constructor(props, context) {
+        super(props, context);
+        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+        this.state = {
+            orderDetail: [],
+            orderInfo: []
+        }
+    }
+
     render() {
+        const orderDetail = this.state.orderDetail;
+        const orderInfo = this.state.orderInfo;
         return (
             <div className="ysx-orderDetail">
                 <Header/>
@@ -16,45 +30,47 @@ class orderDetail extends Component {
                     <div className="myOrderDetail-top">
                         订单详情
                     </div>
-                    <div className="myOrderDetail-bottom">
-                        <div className="myOrderDetail-bottom-div">
-                            <div className="">订单号:</div>
-                            <div className="">12345678909</div>
-                        </div>
-                        <div className="myOrderDetail-bottom-div">
-                            <div className="">创建时间:</div>
-                            <div className="">2018-02-14,08:08:08</div>
-                        </div>
-                        <div className="myOrderDetail-bottom-div">
-                            <div className="">收件人:</div>
-                            <div className="">
-                                <span>七七</span>
-                                <span>15550739985</span>
+                    {orderInfo.map((item, index) => {
+                        return <div key={index} className="myOrderDetail-bottom">
+                            <div className="myOrderDetail-bottom-div">
+                                <div className="">订单号:</div>
+                                <div className="">{item.orderNumber}</div>
+                            </div>
+                            <div className="myOrderDetail-bottom-div">
+                                <div className="">创建时间:</div>
+                                <div className="">{item.orderTime}</div>
+                            </div>
+                            <div className="myOrderDetail-bottom-div">
+                                <div className="">收件人:</div>
+                                <div className="">
+                                    <span>{item.name}</span>
+                                    <span>{item.phoneNumber}</span>
+                                </div>
+                            </div>
+                            <div className="myOrderDetail-bottom-div">
+                                <div className="">地址:</div>
+                                <div className="">
+                                    {item.address}
+                                </div>
+                            </div>
+                            <div className="myOrderDetail-bottom-div">
+                                <div className="">订单状态:</div>
+                                <div className="">
+                                    <span>{item.orderState}</span>
+                                    <button type="button">点击发货</button>
+                                </div>
+                            </div>
+                            <div className="myOrderDetail-bottom-div">
+                                <div className="">支付方式:</div>
+                                <div className="">{item.orderStyle}</div>
+                            </div>
+                            <div className="myOrderDetail-bottom-div">
+                                <div className="">支付金额:</div>
+                                <div className="">{item.orderAmount}</div>
                             </div>
                         </div>
-                        <div className="myOrderDetail-bottom-div">
-                            <div className="">地址:</div>
-                            <div className="">
-                                山东省菏泽市巨野县永丰街道办事处健康路77号
-                            </div>
-                        </div>
-                        <div className="myOrderDetail-bottom-div">
-                            <div className="">订单状态:</div>
-                            <div className="">
-                                <span>已付款</span>
-                                <button type="button">点击发货</button>
-                            </div>
-                        </div>
-                        <div className="myOrderDetail-bottom-div">
-                            <div className="">支付方式:</div>
-                            <div className="">在线支付</div>
-                        </div>
-                        <div className="myOrderDetail-bottom-div">
-                            <div className="">支付金额:</div>
-                            <div className="">￥199</div>
-                        </div>
+                    })}
 
-                    </div>
                     <div className="OrderDetail-div">
                         <div className="OrderDetail-div-top">订单详情:</div>
                         <div className="OrderDetail-div-bottom">
@@ -65,74 +81,25 @@ class orderDetail extends Component {
                                 <div className="goods-number">数量</div>
                                 <div className="goods-hj">合计</div>
                             </div>
-                        </div>
-                        <div className="OrderDetail-div-template">
-                            <div className="OrderDetail-template-img">
-                                <img src="http://www.ilqiqi.top/pc/img/gooddatails/crab/brown_cab/1.jpg" alt=""/>
-                            </div>
-                            <div className="OrderDetail-template-title">
-                                亿成优生鲜 爱尔兰面包蟹（1000-800g*2只）熟冻黄金蟹 海鲜 螃蟹
-                            </div>
-                            <div className="OrderDetail-template-price">
-                                ￥199
-                            </div>
-                            <div className="OrderDetail-template-number">
-                                1
-                            </div>
-                            <div className="OrderDetail-template-zj">
-                                199
-                            </div>
-                        </div>
-                        <div className="OrderDetail-div-template">
-                            <div className="OrderDetail-template-img">
-                                <img src="http://www.ilqiqi.top/pc/img/gooddatails/crab/brown_cab/1.jpg" alt=""/>
-                            </div>
-                            <div className="OrderDetail-template-title">
-                                亿成优生鲜 爱尔兰面包蟹（1000-800g*2只）熟冻黄金蟹 海鲜 螃蟹
-                            </div>
-                            <div className="OrderDetail-template-price">
-                                ￥199
-                            </div>
-                            <div className="OrderDetail-template-number">
-                                1
-                            </div>
-                            <div className="OrderDetail-template-zj">
-                                199
-                            </div>
-                        </div>
-                        <div className="OrderDetail-div-template">
-                            <div className="OrderDetail-template-img">
-                                <img src="http://www.ilqiqi.top/pc/img/gooddatails/crab/brown_cab/1.jpg" alt=""/>
-                            </div>
-                            <div className="OrderDetail-template-title">
-                                亿成优生鲜 爱尔兰面包蟹（1000-800g*2只）熟冻黄金蟹 海鲜 螃蟹
-                            </div>
-                            <div className="OrderDetail-template-price">
-                                ￥199
-                            </div>
-                            <div className="OrderDetail-template-number">
-                                1
-                            </div>
-                            <div className="OrderDetail-template-zj">
-                                199
-                            </div>
-                        </div>
-                        <div className="OrderDetail-div-template">
-                            <div className="OrderDetail-template-img">
-                                <img src="http://www.ilqiqi.top/pc/img/gooddatails/crab/brown_cab/1.jpg" alt=""/>
-                            </div>
-                            <div className="OrderDetail-template-title">
-                                亿成优生鲜 爱尔兰面包蟹（1000-800g*2只）熟冻黄金蟹 海鲜 螃蟹
-                            </div>
-                            <div className="OrderDetail-template-price">
-                                ￥199
-                            </div>
-                            <div className="OrderDetail-template-number">
-                                1
-                            </div>
-                            <div className="OrderDetail-template-zj">
-                                199
-                            </div>
+                            {orderDetail.map((item, index) => {
+                                return <div key={index} className="OrderDetail-div-template">
+                                    <div className="OrderDetail-template-img">
+                                        <img src={item.img}/>
+                                    </div>
+                                    <div className="OrderDetail-template-title">
+                                        {item.title}
+                                    </div>
+                                    <div className="OrderDetail-template-price">
+                                        {item.pirce}
+                                    </div>
+                                    <div className="OrderDetail-template-number">
+                                        {item.number}
+                                    </div>
+                                    <div className="OrderDetail-template-zj">
+                                        {item.hj}
+                                    </div>
+                                </div>
+                            })}
                         </div>
                     </div>
                 </div>
@@ -140,10 +107,24 @@ class orderDetail extends Component {
             </div>
         );
     }
+
     componentDidMount() {
-        axios.get('/hot').then(res => {
-            console.log(res);
-        })
+
+        this._getOrderDetail()
+
+    }
+
+    _getOrderDetail() {
+        axios.get("/admUserOrderDetail")
+            .then((res) => {
+                this.setState({
+                    orderDetail: res.data[0].orderDetail,
+                    orderInfo: res.data[0].orderInfo
+                })
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 }
 

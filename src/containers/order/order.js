@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import axios from 'axios';
+import PureRenderMixin from 'react-addons-pure-render-mixin'
 import './order.less'
 import Header from '../../component/header/herder'
 import Footer from '../../component/footer/footer'
@@ -9,39 +10,21 @@ import Left from '../../component/left/left'
 class order extends Component {
     constructor(props, context) {
         super(props, context);
+        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {
-            userOrder: []
+            data: []
         }
-    };
-
-    componentDidMount() {
-        this._getUserOrder();
-
-    };
-
-    _getUserOrder() {
-        axios.get("/userOrder")
-            .then((res) => {
-                this.state.userOrder = res.data;
-                console.log(this.state.userOrder)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    };
+    }
 
     render() {
-        const userOrder = this.state.userOrder;
-        function show() {
-            console.log(userOrder)
-        }
+        const userOrder = this.state.data;
 
         return (
             <div className="ysx-order">
                 <Header/>
                 <Left/>
                 <div className="myOrder" >
-                    <div className="myOrder-title" onClick={show}>
+                    <div className="myOrder-title">
                         订单管理
                     </div>
                     <div className="myOrder-select">
@@ -67,21 +50,20 @@ class order extends Component {
                         </div>
                         <div className="myOrder-list-bottom">
                             {userOrder.map((item, index) => {
-                                return <div className="myOrder-list-template">
+                                return <div key={index}className="myOrder-list-template">
                                     <div className="myOrder-list-template-number">
-                                        <NavLink to="/orderDetails" key={index}>{item.orderNumber}</NavLink>
+                                        <NavLink to="/orderDetails" >{item.orderNumber}</NavLink>
                                     </div>
-                                    <div className="myOrder-list-template-sjr" key={index}>{item.userName}</div>
-                                    <div className="myOrder-list-template-state" key={index}>{item.state}</div>
-                                    <div className="myOrder-list-template-price" key={index}>{item.price}</div>
-                                    <div className="myOrder-list-template-time" key={index}>{item.orderTime}</div>
+                                    <div className="myOrder-list-template-sjr">{item.userName}</div>
+                                    <div className="myOrder-list-template-state">{item.state}</div>
+                                    <div className="myOrder-list-template-price">{item.price}</div>
+                                    <div className="myOrder-list-template-time">{item.orderTime}</div>
                                     <div className="myOrder-list-template-cz">
                                         <NavLink to="/orderDetails">操作</NavLink>
                                     </div>
                                 </div>
                             })}
                         </div>
-
                     </div>
                     <div className="myOrder-page">
                         <div className="">
@@ -102,9 +84,22 @@ class order extends Component {
         );
     }
 
+    componentDidMount() {
+        this._getUserOrder();
 
+    };
 
-
+    _getUserOrder() {
+        axios.get("/admUserOrder")
+            .then((res) => {
+                this.setState({
+                    data: res.data
+                })
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    };
 
 }
 
