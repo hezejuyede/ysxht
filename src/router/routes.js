@@ -18,6 +18,8 @@ import Product from '../containers/product/product'
 import productDetails from '../containers/productDetails/productDetails'
 import productBj from '../containers/productBJ/productBJ'
 import orderDetails from '../containers/orderDetail/orderDetail'
+import productAll from '../containers/productAll/productAll'
+import productAdd from '../containers/productAdd/productAdd'
 class Routers extends Component {
     render() {
         return (
@@ -37,15 +39,19 @@ class Routers extends Component {
                     </Route>
                     <Route path="/order" component={Order}>
                     </Route>
-                    <Route path="/orderDetails" component={orderDetails}>
+                    <Route path="/orderDetails/:id" component={orderDetails}>
                     </Route>
                     <Route path="/classify" component={Classify}>
                     </Route>
-                    <Route path="/product" component={Product}>
+                    <Route path="/product/:id" component={Product}>
                     </Route>
-                    <Route path="/productBj" component={productBj}>
+                    <Route path="/productAll" component={productAll}>
                     </Route>
-                    <Route path="/productDetails" component={productDetails}>
+                    <Route path="/productAdd" component={productAdd}>
+                    </Route>
+                    <Route path="/productBj/:id" component={productBj}>
+                    </Route>
+                    <Route path="/productDetails/:id" component={productDetails}>
                     </Route>
                     <Redirect from="/" to="/home">
                     </Redirect>

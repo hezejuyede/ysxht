@@ -66,7 +66,7 @@ class left extends Component {
                         </div>
                         <div className="left-template-bottom1">
                             <p className="">
-                                <NavLink to="/product">商品管理</NavLink>
+                                <NavLink to="/productAll">商品管理</NavLink>
                             </p>
                             <p className="">
                                 <NavLink to="/classify">品类管理</NavLink>

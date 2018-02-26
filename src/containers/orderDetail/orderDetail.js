@@ -15,7 +15,7 @@ class orderDetail extends Component {
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {
             orderDetail: [],
-            orderInfo: []
+            orderInfo: [],
         }
     }
 
@@ -70,7 +70,6 @@ class orderDetail extends Component {
                             </div>
                         </div>
                     })}
-
                     <div className="OrderDetail-div">
                         <div className="OrderDetail-div-top">订单详情:</div>
                         <div className="OrderDetail-div-bottom">
@@ -115,11 +114,16 @@ class orderDetail extends Component {
     }
 
     _getOrderDetail() {
-        axios.get("/admUserOrderDetail")
+        const id = this.props.match.params.id;
+        axios.get("/admUserOrderDetail", {
+            params: {
+                id: id
+            }
+        })
             .then((res) => {
                 this.setState({
                     orderDetail: res.data[0].orderDetail,
-                    orderInfo: res.data[0].orderInfo
+                    orderInfo: res.data
                 })
             })
             .catch((err) => {

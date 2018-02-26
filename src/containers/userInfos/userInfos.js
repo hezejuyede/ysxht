@@ -1,11 +1,22 @@
 import React, {Component} from 'react';
 import './userInfos.less'
+import axios from 'axios'
+import PureRenderMixin from 'react-addons-pure-render-mixin'
 import Header from '../../component/header/herder'
 import Footer from '../../component/footer/footer'
 import Left from '../../component/left/left'
 
 class userInfos extends Component {
+    constructor(props, context) {
+        super(props, context);
+        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+        this.state = {
+            admUserList: []
+        }
+    }
+
     render() {
+        const admUserList = this.state.admUserList
         return (
             <div className="className">
                 <Header/>
@@ -20,79 +31,17 @@ class userInfos extends Component {
                             <p className="user-name">用户名</p>
                             <p className="user-email">邮箱</p>
                             <p className="user-phone">电话</p>
-                            <p className="user-time">注册时间</p>
                         </div>
                         <div className="bottom-center">
-                            <div className="user-template">
-                                <p className="user-id">00001</p>
-                                <p className="user-name">七七</p>
-                                <p className="user-email">1574408801@qq.com</p>
-                                <p className="user-phone">15550739985</p>
-                                <p className="user-time">2018年1月1日01时26分36秒</p>
-                            </div>
-                            <div className="user-template">
-                                <p className="user-id">00001</p>
-                                <p className="user-name">七七</p>
-                                <p className="user-email">1574408801@qq.com</p>
-                                <p className="user-phone">15550739985</p>
-                                <p className="user-time">2018年1月1日01时26分36秒</p>
-                            </div>
-                            <div className="user-template">
-                                <p className="user-id">00001</p>
-                                <p className="user-name">七七</p>
-                                <p className="user-email">1574408801@qq.com</p>
-                                <p className="user-phone">15550739985</p>
-                                <p className="user-time">2018年1月1日01时26分36秒</p>
-                            </div>
-                            <div className="user-template">
-                                <p className="user-id">00001</p>
-                                <p className="user-name">七七</p>
-                                <p className="user-email">1574408801@qq.com</p>
-                                <p className="user-phone">15550739985</p>
-                                <p className="user-time">2018年1月1日01时26分36秒</p>
-                            </div>
-                            <div className="user-template">
-                                <p className="user-id">00001</p>
-                                <p className="user-name">七七</p>
-                                <p className="user-email">1574408801@qq.com</p>
-                                <p className="user-phone">15550739985</p>
-                                <p className="user-time">2018年1月1日01时26分36秒</p>
-                            </div>
-                            <div className="user-template">
-                                <p className="user-id">00001</p>
-                                <p className="user-name">七七</p>
-                                <p className="user-email">1574408801@qq.com</p>
-                                <p className="user-phone">15550739985</p>
-                                <p className="user-time">2018年1月1日01时26分36秒</p>
-                            </div>
-                            <div className="user-template">
-                                <p className="user-id">00001</p>
-                                <p className="user-name">七七</p>
-                                <p className="user-email">1574408801@qq.com</p>
-                                <p className="user-phone">15550739985</p>
-                                <p className="user-time">2018年1月1日01时26分36秒</p>
-                            </div>
-                            <div className="user-template">
-                                <p className="user-id">00001</p>
-                                <p className="user-name">七七</p>
-                                <p className="user-email">1574408801@qq.com</p>
-                                <p className="user-phone">15550739985</p>
-                                <p className="user-time">2018年1月1日01时26分36秒</p>
-                            </div>
-                            <div className="user-template">
-                                <p className="user-id">00001</p>
-                                <p className="user-name">七七</p>
-                                <p className="user-email">1574408801@qq.com</p>
-                                <p className="user-phone">15550739985</p>
-                                <p className="user-time">2018年1月1日01时26分36秒</p>
-                            </div>
-                            <div className="user-template">
-                                <p className="user-id">00001</p>
-                                <p className="user-name">七七</p>
-                                <p className="user-email">1574408801@qq.com</p>
-                                <p className="user-phone">15550739985</p>
-                                <p className="user-time">2018年1月1日01时26分36秒</p>
-                            </div>
+                            {admUserList.map((item, index) => {
+                                return <div key={index} className="user-template">
+                                    <p className="user-id">{item._id}</p>
+                                    <p className="user-name">{item.username}</p>
+                                    <p className="user-email">{item.email}</p>
+                                    <p className="user-phone">{item.phone}</p>
+                                </div>
+                            })}
+
 
                         </div>
                         <div className="bottom-bottom">
@@ -124,6 +73,23 @@ class userInfos extends Component {
             </div>
         );
     }
+
+    componentDidMount() {
+        this._getUserOrder();
+
+    };
+
+    _getUserOrder() {
+        axios.get("/admUserList")
+            .then((res) => {
+                this.setState({
+                    admUserList: res.data
+                })
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    };
 }
 
 export default userInfos;

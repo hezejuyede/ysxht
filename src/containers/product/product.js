@@ -1,17 +1,30 @@
 import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
 import './product.less'
+
+import axios from 'axios';
+import PureRenderMixin from 'react-addons-pure-render-mixin'
+
+
 import Header from '../../component/header/herder'
 import Footer from '../../component/footer/footer'
 import Left from '../../component/left/left'
 
 class product extends Component {
+    constructor(props, context) {
+        super(props, context);
+        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+        this.state = {
+            productInfo: []
+        }
+    }
+
     render() {
+        const productInfo = this.state.productInfo
         return (
             <div className="className">
                 <Header/>
                 <Left/>
-
                 <div className="ysx-product">
                     <div className="product-top">
                         <div className="product-top-left">
@@ -19,16 +32,16 @@ class product extends Component {
                         </div>
                         <div className="product-top-right">
                             <i className="iconfont icon-add"></i>
-                            <NavLink to="/productBj">添加商品</NavLink>
+                            <NavLink to="/productAdd">添加商品</NavLink>
                         </div>
 
                     </div>
                     <div className="product-cx">
                         <div className="product-cx-left">
-                           <select>
-                               <option value ="id">根据商品ID查询</option>
-                               <option value ="name">根据商品名称查询</option>
-                           </select>
+                            <select>
+                                <option value="id">根据商品ID查询</option>
+                                <option value="name">根据商品名称查询</option>
+                            </select>
                         </div>
                         <div className="product-cx-right">
                             <input type="text" placeholder="关键字"/>
@@ -54,209 +67,27 @@ class product extends Component {
                             </p>
                         </div>
                         <div className="product-center-bottom">
-                            <div className="product-template">
-                                <p className="product-template-id">
-                                    001
-                                </p>
-                                <p className="product-template-title">
-                                    聚福鲜 冷冻智利三文鱼刺身 500g 袋装 海鲜年货 生鱼片
-                                </p>
-                                <p className="product-template-price">
-                                    ￥199
-                                </p>
-                                <p className="product-template-state">
-                                    <span className="state-zs">在售</span>
-                                    <span className="state-xj">下架</span>
-                                </p>
-                                <p className="product-template-cz" >
-                                    <NavLink to="/productDetails" className="cz-ck">查看</NavLink>
-                                    <NavLink to="/productBj" className="cz-bj">编辑</NavLink>
-                                </p>
-                            </div>
-                            <div className="product-template">
-                                <p className="product-template-id">
-                                    001
-                                </p>
-                                <p className="product-template-title">
-                                    聚福鲜 冷冻智利三文鱼刺身 500g 袋装 海鲜年货 生鱼片
-                                </p>
-                                <p className="product-template-price">
-                                    ￥199
-                                </p>
-                                <p className="product-template-state">
-                                    <span className="state-zs">在售</span>
-                                    <span className="state-xj">下架</span>
-                                </p>
-                                <p className="product-template-cz" >
-                                    <span className="cz-ck">查看</span>
-                                    <span className="cz-bj">编辑</span>
-                                </p>
-                            </div>
-                            <div className="product-template">
-                                <p className="product-template-id">
-                                    001
-                                </p>
-                                <p className="product-template-title">
-                                    聚福鲜 冷冻智利三文鱼刺身 500g 袋装 海鲜年货 生鱼片
-                                </p>
-                                <p className="product-template-price">
-                                    ￥199
-                                </p>
-                                <p className="product-template-state">
-                                    <span className="state-zs">在售</span>
-                                    <span className="state-xj">下架</span>
-                                </p>
-                                <p className="product-template-cz" >
-                                    <span className="cz-ck">查看</span>
-                                    <span className="cz-bj">编辑</span>
-                                </p>
-                            </div>
-                            <div className="product-template">
-                                <p className="product-template-id">
-                                    001
-                                </p>
-                                <p className="product-template-title">
-                                    聚福鲜 冷冻智利三文鱼刺身 500g 袋装 海鲜年货 生鱼片
-                                </p>
-                                <p className="product-template-price">
-                                    ￥199
-                                </p>
-                                <p className="product-template-state">
-                                    <span className="state-zs">在售</span>
-                                    <span className="state-xj">下架</span>
-                                </p>
-                                <p className="product-template-cz" >
-                                    <span className="cz-ck">查看</span>
-                                    <span className="cz-bj">编辑</span>
-                                </p>
-                            </div>
-                            <div className="product-template">
-                                <p className="product-template-id">
-                                    001
-                                </p>
-                                <p className="product-template-title">
-                                    聚福鲜 冷冻智利三文鱼刺身 500g 袋装 海鲜年货 生鱼片
-                                </p>
-                                <p className="product-template-price">
-                                    ￥199
-                                </p>
-                                <p className="product-template-state">
-                                    <span className="state-zs">在售</span>
-                                    <span className="state-xj">下架</span>
-                                </p>
-                                <p className="product-template-cz" >
-                                    <span className="cz-ck">查看</span>
-                                    <span className="cz-bj">编辑</span>
-                                </p>
-                            </div>
-                            <div className="product-template">
-                                <p className="product-template-id">
-                                    001
-                                </p>
-                                <p className="product-template-title">
-                                    聚福鲜 冷冻智利三文鱼刺身 500g 袋装 海鲜年货 生鱼片
-                                </p>
-                                <p className="product-template-price">
-                                    ￥199
-                                </p>
-                                <p className="product-template-state">
-                                    <span className="state-zs">在售</span>
-                                    <span className="state-xj">下架</span>
-                                </p>
-                                <p className="product-template-cz" >
-                                    <span className="cz-ck">查看</span>
-                                    <span className="cz-bj">编辑</span>
-                                </p>
-                            </div>
-                            <div className="product-template">
-                                <p className="product-template-id">
-                                    001
-                                </p>
-                                <p className="product-template-title">
-                                    聚福鲜 冷冻智利三文鱼刺身 500g 袋装 海鲜年货 生鱼片
-                                </p>
-                                <p className="product-template-price">
-                                    ￥199
-                                </p>
-                                <p className="product-template-state">
-                                    <span className="state-zs">在售</span>
-                                    <span className="state-xj">下架</span>
-                                </p>
-                                <p className="product-template-cz" >
-                                    <span className="cz-ck">查看</span>
-                                    <span className="cz-bj">编辑</span>
-                                </p>
-                            </div>
-                            <div className="product-template">
-                                <p className="product-template-id">
-                                    001
-                                </p>
-                                <p className="product-template-title">
-                                    聚福鲜 冷冻智利三文鱼刺身 500g 袋装 海鲜年货 生鱼片
-                                </p>
-                                <p className="product-template-price">
-                                    ￥199
-                                </p>
-                                <p className="product-template-state">
-                                    <span className="state-zs">在售</span>
-                                    <span className="state-xj">下架</span>
-                                </p>
-                                <p className="product-template-cz" >
-                                    <span className="cz-ck">查看</span>
-                                    <span className="cz-bj">编辑</span>
-                                </p>
-                            </div>
-                            <div className="product-template">
-                                <p className="product-template-id">
-                                    001
-                                </p>
-                                <p className="product-template-title">
-                                    聚福鲜 冷冻智利三文鱼刺身 500g 袋装 海鲜年货 生鱼片
-                                </p>
-                                <p className="product-template-price">
-                                    ￥199
-                                </p>
-                                <p className="product-template-state">
-                                    <span className="state-zs">在售</span>
-                                    <span className="state-xj">下架</span>
-                                </p>
-                                <p className="product-template-cz" >
-                                    <span className="cz-ck">查看</span>
-                                    <span className="cz-bj">编辑</span>
-                                </p>
-                            </div>
-                            <div className="product-template">
-                                <p className="product-template-id">
-                                    001
-                                </p>
-                                <p className="product-template-title">
-                                    聚福鲜 冷冻智利三文鱼刺身 500g 袋装 海鲜年货 生鱼片
-                                </p>
-                                <p className="product-template-price">
-                                    ￥199
-                                </p>
-                                <p className="product-template-state">
-                                    <span className="state-zs">在售</span>
-                                    <span className="state-xj">下架</span>
-                                </p>
-                                <p className="product-template-cz" >
-                                    <span className="cz-ck">查看</span>
-                                    <span className="cz-bj">编辑</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="product-bottom">
-                        <div className="">
-                            <i className="iconfont icon-left-trangle"></i>
-                        </div>
-                        <div className="product-red">1</div>
-                        <div className="">2</div>
-                        <div className="">3</div>
-                        <div className="">...</div>
-                        <div className="">20</div>
-                        <div className="">
-                            <i className="iconfont icon-right-trangle"></i>
+                            {productInfo.map((item, index) => {
+                                return <div key={index} className="product-template">
+                                    <p className="product-template-id">
+                                        {item.id}
+                                    </p>
+                                    <p className="product-template-title">
+                                        {item.title}
+                                    </p>
+                                    <p className="product-template-price">
+                                        {item.price}
+                                    </p>
+                                    <p className="product-template-state">
+                                        <span className="state-zs">在售</span>
+                                        <span className="state-xj">下架</span>
+                                    </p>
+                                    <p className="product-template-cz">
+                                        <NavLink to={"/productDetails/"+index+this.props.match.params.id} className="cz-ck">查看</NavLink>
+                                        <NavLink to={"/productBj/"+index+this.props.match.params.id}     className="cz-bj">编辑</NavLink>
+                                    </p>
+                                </div>
+                            })}
                         </div>
                     </div>
                 </div>
@@ -264,6 +95,28 @@ class product extends Component {
             </div>
         );
     }
+
+    componentDidMount() {
+        this._getUserOrder();
+
+    };
+
+    _getUserOrder() {
+        const id = this.props.match.params.id;
+        axios.get("/admProduct",  {
+            params: {
+                id: id
+            }
+        })
+            .then((res) => {
+                this.setState({
+                    productInfo: res.data[0].goodsImg
+                })
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    };
 }
 
 export default product;

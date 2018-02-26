@@ -10,8 +10,7 @@
 .productDetails-state,
 .productDetails-classify,
 .productDetails-price,
-.productDetails-number,
-.productDetails-img
+.productDetails-number
 {
   height: 60px;
   margin: 5px auto;
@@ -20,13 +19,37 @@
   justify-content: center;
   overflow: hidden;
 }
+.productDetails-img{
+  height: 200px;
+  margin: 5px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.p-img-left{
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.p-img-right{
+  flex: 4;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
 .rightP >div{
   flex: 1;
 }
 
-.rightP >div img{
-  width: 100%;
-}
+
 
 .leftP{
   flex: 2;

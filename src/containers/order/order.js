@@ -52,14 +52,16 @@ class order extends Component {
                             {userOrder.map((item, index) => {
                                 return <div key={index}className="myOrder-list-template">
                                     <div className="myOrder-list-template-number">
-                                        <NavLink to="/orderDetails" >{item.orderNumber}</NavLink>
+                                        <NavLink to={'/orderDetails/'+item.orderNumber}>
+                                            {item.orderNumber}
+                                        </NavLink>
                                     </div>
-                                    <div className="myOrder-list-template-sjr">{item.userName}</div>
-                                    <div className="myOrder-list-template-state">{item.state}</div>
-                                    <div className="myOrder-list-template-price">{item.price}</div>
+                                    <div className="myOrder-list-template-sjr">{item.name}</div>
+                                    <div className="myOrder-list-template-state">{item.orderState}</div>
+                                    <div className="myOrder-list-template-price">{item.orderAmount}</div>
                                     <div className="myOrder-list-template-time">{item.orderTime}</div>
                                     <div className="myOrder-list-template-cz">
-                                        <NavLink to="/orderDetails">操作</NavLink>
+                                        <NavLink to={'/orderDetails/'+item.orderNumber}>操作</NavLink>
                                     </div>
                                 </div>
                             })}
