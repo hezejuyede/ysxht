@@ -1,13 +1,26 @@
 import React, {Component} from 'react';
-import './classify.less'
+import './classify.css'
 import Header from '../../component/header/herder'
 import Footer from '../../component/footer/footer'
 import Left from '../../component/left/left'
 
+import NoLogin from '../../component/Nologin/Nologin'
+import axios from 'axios';
+import PureRenderMixin from 'react-addons-pure-render-mixin'
+
 class userInfos extends Component {
+    constructor(props, context) {
+        super(props, context);
+        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+        this.state = {
+            data: [],
+            userinfoState:false
+        }
+    }
     render() {
+        const classify = this.state.data;
         return (
-            <div className="ysx-classify">
+            this.state.userinfoState ?  <div className="ysx-classify">
                 <Header/>
                 <Left/>
                 <div className="classify">
@@ -25,144 +38,58 @@ class userInfos extends Component {
                         <div className="classify-top-cz">操作</div>
                     </div>
                     <div className="classify-bottom">
-                        <div className="classify-bottom-template">
-                            <div className="classify-bottom-ID">001</div>
-                            <div className="classify-bottom-name">螃蟹类</div>
-                            <div className="classify-bottom-cz">
+                        {classify.map((item, index) => {
+                            return <div className="classify-bottom-template">
+                                <div className="classify-bottom-ID">{item.id}</div>
+                                <div className="classify-bottom-name">
+                                    {item.goodsName}
+                                </div>
+                                <div className="classify-bottom-cz">
                                 <span className="classify-bottom-cz-xg">
                                     修改
                                 </span>
-                                <span className="classify-bottom-cz-xg">
+                                    <span className="classify-bottom-cz-xg">
                                     查看子品类
                                 </span>
+                                </div>
                             </div>
-                        </div>
-                        <div className="classify-bottom-template">
-                            <div className="classify-bottom-ID">002</div>
-                            <div className="classify-bottom-name">大虾类</div>
-                            <div className="classify-bottom-cz">
-                                <span className="classify-bottom-cz-xg">
-                                    修改
-                                </span>
-                                <span className="classify-bottom-cz-xg">
-                                    查看子品类
-                                </span>
-                            </div>
-                        </div>
-                        <div className="classify-bottom-template">
-                            <div className="classify-bottom-ID">003</div>
-                            <div className="classify-bottom-name">鲜鱼类</div>
-                            <div className="classify-bottom-cz">
-                                <span className="classify-bottom-cz-xg">
-                                    修改
-                                </span>
-                                <span className="classify-bottom-cz-xg">
-                                    查看子品类
-                                </span>
-                            </div>
-                        </div>
-                        <div className="classify-bottom-template">
-                            <div className="classify-bottom-ID">004</div>
-                            <div className="classify-bottom-name">鸡肉类</div>
-                            <div className="classify-bottom-cz">
-                                <span className="classify-bottom-cz-xg">
-                                    修改
-                                </span>
-                                <span className="classify-bottom-cz-xg">
-                                    查看子品类
-                                </span>
-                            </div>
-                        </div>
-                        <div className="classify-bottom-template">
-                            <div className="classify-bottom-ID">005</div>
-                            <div className="classify-bottom-name">鸭肉类</div>
-                            <div className="classify-bottom-cz">
-                                <span className="classify-bottom-cz-xg">
-                                    修改
-                                </span>
-                                <span className="classify-bottom-cz-xg">
-                                    查看子品类
-                                </span>
-                            </div>
-                        </div>
-                        <div className="classify-bottom-template">
-                            <div className="classify-bottom-ID">006</div>
-                            <div className="classify-bottom-name">羊肉类</div>
-                            <div className="classify-bottom-cz">
-                                <span className="classify-bottom-cz-xg">
-                                    修改
-                                </span>
-                                <span className="classify-bottom-cz-xg">
-                                    查看子品类
-                                </span>
-                            </div>
-                        </div>
-                        <div className="classify-bottom-template">
-                            <div className="classify-bottom-ID">007</div>
-                            <div className="classify-bottom-name">猪肉类</div>
-                            <div className="classify-bottom-cz">
-                                <span className="classify-bottom-cz-xg">
-                                    修改
-                                </span>
-                                <span className="classify-bottom-cz-xg">
-                                    查看子品类
-                                </span>
-                            </div>
-                        </div>
-                        <div className="classify-bottom-template">
-                            <div className="classify-bottom-ID">008</div>
-                            <div className="classify-bottom-name">牛肉类</div>
-                            <div className="classify-bottom-cz">
-                                <span className="classify-bottom-cz-xg">
-                                    修改
-                                </span>
-                                <span className="classify-bottom-cz-xg">
-                                    查看子品类
-                                </span>
-                            </div>
-                        </div>
-                        <div className="classify-bottom-template">
-                            <div className="classify-bottom-ID">001</div>
-                            <div className="classify-bottom-name">火锅丸</div>
-                            <div className="classify-bottom-cz">
-                                <span className="classify-bottom-cz-xg">
-                                    修改
-                                </span>
-                                <span className="classify-bottom-cz-xg">
-                                    查看子品类
-                                </span>
-                            </div>
-                        </div>
-                        <div className="classify-bottom-template">
-                            <div className="classify-bottom-ID">001</div>
-                            <div className="classify-bottom-name">调味料</div>
-                            <div className="classify-bottom-cz">
-                                <span className="classify-bottom-cz-xg">
-                                    修改
-                                </span>
-                                <span className="classify-bottom-cz-xg">
-                                    查看子品类
-                                </span>
-                            </div>
-                        </div>
-                        <div className="classify-bottom-template">
-                            <div className="classify-bottom-ID">001</div>
-                            <div className="classify-bottom-name">精面点</div>
-                            <div className="classify-bottom-cz">
-                                <span className="classify-bottom-cz-xg">
-                                    修改
-                                </span>
-                                <span className="classify-bottom-cz-xg">
-                                    查看子品类
-                                </span>
-                            </div>
-                        </div>
+                        })}
                     </div>
                 </div>
                 <Footer/>
-            </div>
+            </div> :<NoLogin/>
         );
     }
+    componentWillMount() {
+        this._getProductClassify();
+    };
+
+    _getProductClassify() {
+        let NowUserStates = localStorage.getItem("UserStates");
+        NowUserStates = JSON.parse(NowUserStates);
+
+
+        if (NowUserStates == null) {
+            console.log(this.state.userinfoState);
+            this.setState({
+                userinfoState: false,
+            })
+        } else if (NowUserStates == 1) {
+
+            axios.get("/admProductClassify")
+                .then((res) => {
+                console.log(res.data);
+                    this.setState({
+                        data: res.data,
+                        userinfoState: true
+                    })
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }
+
+    };
 }
 
 export default userInfos;

@@ -1,13 +1,21 @@
 import React, {Component} from 'react';
-import './setUp.less'
+import './setUp.css'
 import Header from '../../component/header/herder'
 import Footer from '../../component/footer/footer'
 import Left from '../../component/left/left'
-
+import NoLogin from '../../component/Nologin/Nologin'
+import PureRenderMixin from 'react-addons-pure-render-mixin'
 class setUp extends Component {
+    constructor(props, context) {
+        super(props, context);
+        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+        this.state = {
+            userinfoState: false
+        }
+    }
     render() {
         return (
-            <div className="className">
+            this.state.userinfoState ? <div className="className">
                 <Header/>
                 <Left/>
                 <div className="ysx-setUp">
@@ -61,9 +69,30 @@ class setUp extends Component {
 
                 </div>
                 <Footer/>
-            </div>
+            </div> : <NoLogin/>
+
         );
     }
+    componentDidMount() {
+        this._getRegister();
+
+    };
+
+    _getRegister() {
+        let NowUserStates = localStorage.getItem("UserStates");
+        NowUserStates = JSON.parse(NowUserStates);
+        if (NowUserStates == null) {
+            this.setState({
+                userinfoState: false,
+            })
+        }
+        else if (NowUserStates == 1) {
+            this.setState({
+                userinfoState: true,
+            })
+
+        }
+    };
 }
 
 export default setUp;

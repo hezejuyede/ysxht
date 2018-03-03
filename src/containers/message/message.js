@@ -1,13 +1,27 @@
 import React, {Component} from 'react';
-import './message.less'
+import './message.css'
 import Header from '../../component/header/herder'
 import Footer from '../../component/footer/footer'
 import Left from '../../component/left/left'
 
+import NoLogin from '../../component/Nologin/Nologin'
+import PureRenderMixin from 'react-addons-pure-render-mixin'
+
+
 class Message extends Component {
+    constructor(props, context) {
+        super(props, context);
+        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+        this.state = {
+            data: [],
+            userinfoState: false
+        }
+    }
+
     render() {
         return (
-            <div className="className">
+
+            this.state.userinfoState ? <div className="className">
                 <Header/>
                 <Left/>
                 <div className="ysx-message">
@@ -21,8 +35,8 @@ class Message extends Component {
                                 <p className="">无未读信息</p>
                             </div>
                             <div className="sttz-top-right">
-                                <i  className="iconfont icon-right-trangle mone1"></i>
-                                <i  className="iconfont icon-down-trangle1 mone2"></i>
+                                <i className="iconfont icon-right-trangle mone1"></i>
+                                <i className="iconfont icon-down-trangle1 mone2"></i>
                             </div>
                         </div>
                         <div className="sttz-bottom mone">
@@ -49,9 +63,30 @@ class Message extends Component {
                     </div>
                 </div>
                 <Footer/>
-            </div>
+            </div> : <NoLogin/>
         );
     }
+    componentWillMount() {
+        this._Message();
+    };
+
+    _Message() {
+        let NowUserStates = localStorage.getItem("UserStates");
+        NowUserStates = JSON.parse(NowUserStates);
+
+        if (NowUserStates == null) {
+            console.log(this.state.userinfoState);
+            this.setState({
+                userinfoState: false,
+            })
+        } else if (NowUserStates == 1) {
+            this.setState({
+                userinfoState: true
+            })
+        }
+
+    };
+
     showSttz(e) {
         e.nativeEvent.stopImmediatePropagation();
         e.preventDefault();
@@ -69,7 +104,7 @@ class Message extends Component {
         }
 
 
-    }
+    };
 
     showXtxx(e) {
         e.nativeEvent.stopImmediatePropagation();
@@ -86,7 +121,7 @@ class Message extends Component {
             down.style.display = 'none';
             right.style.display = 'block';
         }
-    }
+    };
 }
 
 export default Message;

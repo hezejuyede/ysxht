@@ -1,6 +1,7 @@
 .ysx-product{
   padding-left: 100px;
-  height: 480px;
+  margin-bottom: 100px;
+
 }
 
 .product-top{
@@ -148,9 +149,12 @@
   margin-left: 5%;
 }
 .cz-ck{
+  color: #92baff;
+}
+.cz-sc{
+  margin-left: 5%;
   color: #d93f30;
 }
-
 
 @media screen and (max-width: 500px){
   .product-cx select{

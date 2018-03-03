@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './productAdd.less'
+import './productAdd.css'
 
 import axios from 'axios';
 import PureRenderMixin from 'react-addons-pure-render-mixin'
@@ -9,7 +9,7 @@ import Editor from 'wangeditor';
 import Header from '../../component/header/herder'
 import Footer from '../../component/footer/footer'
 import Left from '../../component/left/left'
-
+import NoLogin from '../../component/Nologin/Nologin'
 
 class productAdd extends Component {
     constructor(props, context) {
@@ -35,13 +35,15 @@ class productAdd extends Component {
             number:'',
             price:'',
             gg:'',
-            name:''
+            name:'',
+            userinfoState: false
         }
     }
 
     render() {
         return (
-            <div className="ysx-productAdd">
+
+            this.state.userinfoState ? <div className="ysx-productAdd">
                 <Header/>
                 <Left/>
                 <div className="productAdd">
@@ -63,7 +65,7 @@ class productAdd extends Component {
                                     <p>商品描述:</p>
                                 </div>
                                 <div className="productAdd-bottom-div-right">
-                                    <input type="text"  value={this.state.gg} onChange={this.gg}/>
+                                    <input type="text" value={this.state.gg} onChange={this.gg}/>
                                 </div>
                             </div>
                             <div className="productAdd-bottom-div">
@@ -71,7 +73,7 @@ class productAdd extends Component {
                                     <p>商品价格:</p>
                                 </div>
                                 <div className="productAdd-bottom-div-right">
-                                    <input type="text"  value={this.state.price} onChange={this.price}/>
+                                    <input type="text" value={this.state.price} onChange={this.price}/>
                                 </div>
                             </div>
                             <div className="productAdd-bottom-div">
@@ -79,7 +81,7 @@ class productAdd extends Component {
                                     <p>商品库存:</p>
                                 </div>
                                 <div className="productAdd-bottom-div-right">
-                                    <input type="text"  value={this.state.number} onChange={this.number}/>
+                                    <input type="text" value={this.state.number} onChange={this.number}/>
                                 </div>
                             </div>
                             <div className="productAdd-bottom-div">
@@ -87,7 +89,7 @@ class productAdd extends Component {
                                     <p>商品ID:</p>
                                 </div>
                                 <div className="productAdd-bottom-div-right">
-                                    <input type="text"  value={this.state.id} onChange={this.id}/>
+                                    <input type="text" value={this.state.id} onChange={this.id}/>
                                 </div>
                             </div>
                             <div className="productAdd-bottom-div">
@@ -95,7 +97,7 @@ class productAdd extends Component {
                                     <p>销售状态:</p>
                                 </div>
                                 <div className="productAdd-bottom-div-right">
-                                    <input type="text"  value={this.state.state1} onChange={this.state1}/>
+                                    <input type="text" value={this.state.state1} onChange={this.state1}/>
                                 </div>
                             </div>
                             <div className="productAdd-bottom-div">
@@ -111,7 +113,7 @@ class productAdd extends Component {
                                     <p>所属分类:</p>
                                 </div>
                                 <div className="productAdd-bottom-div-right">
-                                    <select  value={this.state.fl} onChange={this.fl}>
+                                    <select value={this.state.fl} onChange={this.fl}>
                                         <option value="螃蟹类">螃蟹类</option>
                                         <option value="大虾类">大虾类</option>
                                         <option value="鲜鱼类">鲜鱼类</option>
@@ -131,10 +133,10 @@ class productAdd extends Component {
                                     <p>添加图片:</p>
                                 </div>
                                 <div className="productAdd-bottom-div-right">
-                                    <input type="file"  value={this.state.img} onChange={this.img}/>
+                                    <input type="file" value={this.state.img} onChange={this.img}/>
                                 </div>
                             </div>
-                            <button type="button"  onClick={this.addProduct}>提交信息</button>
+                            <button type="button" onClick={this.addProduct}>提交信息</button>
                         </div>
                         <div className="productAdd-bottom-bottom">
                             <p className="productXQ">商品详情:</p>
@@ -147,12 +149,29 @@ class productAdd extends Component {
 
                 <Footer/>
 
-            </div>
+            </div> : <NoLogin/>
         );
     }
 
-    componentDidMount() {
+    componentWillMount() {
+        let NowUserStates = localStorage.getItem("UserStates");
+        NowUserStates = JSON.parse(NowUserStates);
+        if (NowUserStates == null) {
+            this.setState({
+                userinfoState: false,
+            })
+        }
+        else if (NowUserStates == 1) {
 
+            this.setState({
+                userinfoState: true,
+            })
+
+        }
+
+    };
+
+    componentDidMount() {
         this.createProduct();
     };
 
@@ -232,9 +251,10 @@ class productAdd extends Component {
             price:this.state.price,
             img:this.state.img,
         }).then((res)=>{
-            if (res === 1) {
-                alert("添加成功")
-            } else if (res === -1) {
+            if (res.data == 1) {
+                alert("添加成功");
+                window.location="/"
+            } else if (res.data == -1) {
                 alert("添加失败")
             }
 

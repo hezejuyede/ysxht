@@ -2,17 +2,19 @@ import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
 import axios from 'axios';
 import PureRenderMixin from 'react-addons-pure-render-mixin'
-import './order.less'
+import './order.css'
 import Header from '../../component/header/herder'
 import Footer from '../../component/footer/footer'
 import Left from '../../component/left/left'
+import NoLogin from '../../component/Nologin/Nologin'
 
 class order extends Component {
     constructor(props, context) {
         super(props, context);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {
-            data: []
+            data: [],
+            userinfoState:false
         }
     }
 
@@ -20,10 +22,10 @@ class order extends Component {
         const userOrder = this.state.data;
 
         return (
-            <div className="ysx-order">
+            this.state.userinfoState ? <div className="ysx-order">
                 <Header/>
                 <Left/>
-                <div className="myOrder" >
+                <div className="myOrder">
                     <div className="myOrder-title">
                         订单管理
                     </div>
@@ -50,9 +52,9 @@ class order extends Component {
                         </div>
                         <div className="myOrder-list-bottom">
                             {userOrder.map((item, index) => {
-                                return <div key={index}className="myOrder-list-template">
+                                return <div key={index} className="myOrder-list-template">
                                     <div className="myOrder-list-template-number">
-                                        <NavLink to={'/orderDetails/'+item.orderNumber}>
+                                        <NavLink to={'/orderDetails/' + item.orderNumber}>
                                             {item.orderNumber}
                                         </NavLink>
                                     </div>
@@ -61,7 +63,7 @@ class order extends Component {
                                     <div className="myOrder-list-template-price">{item.orderAmount}</div>
                                     <div className="myOrder-list-template-time">{item.orderTime}</div>
                                     <div className="myOrder-list-template-cz">
-                                        <NavLink to={'/orderDetails/'+item.orderNumber}>操作</NavLink>
+                                        <NavLink to={'/orderDetails/' + item.orderNumber}>操作</NavLink>
                                     </div>
                                 </div>
                             })}
@@ -82,25 +84,40 @@ class order extends Component {
                     </div>
                 </div>
                 <Footer/>
-            </div>
+            </div> : <NoLogin/>
         );
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this._getUserOrder();
 
     };
 
     _getUserOrder() {
-        axios.get("/admUserOrder")
-            .then((res) => {
-                this.setState({
-                    data: res.data
+        let NowUserStates = localStorage.getItem("UserStates");
+        NowUserStates = JSON.parse(NowUserStates);
+
+
+        if (NowUserStates == null) {
+            console.log(this.state.userinfoState);
+            this.setState({
+                userinfoState: false,
+            })
+        }
+        else if (NowUserStates == 1) {
+
+            axios.get("/admUserOrder")
+                .then((res) => {
+                    this.setState({
+                        data: res.data,
+                        userinfoState: true
+                    })
                 })
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }
+
     };
 
 }

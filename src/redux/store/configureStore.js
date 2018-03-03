@@ -1,5 +1,5 @@
 import {createStore} from 'redux';
-import rootReducer from '../reducres';
+import rootReducer from '../reducres/index';
 
 export default function configureStore(initialState) {
     const store = createStore(rootReducer, initialState,
@@ -7,3 +7,4 @@ export default function configureStore(initialState) {
     );
     return store
 }
+

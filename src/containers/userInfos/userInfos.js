@@ -1,24 +1,27 @@
 import React, {Component} from 'react';
-import './userInfos.less'
+import './userInfos.css'
 import axios from 'axios'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import Header from '../../component/header/herder'
 import Footer from '../../component/footer/footer'
 import Left from '../../component/left/left'
+import NoLogin from '../../component/Nologin/Nologin'
 
 class userInfos extends Component {
     constructor(props, context) {
         super(props, context);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {
-            admUserList: []
+            admUserList: [],
+            userinfoState: false
         }
     }
 
     render() {
-        const admUserList = this.state.admUserList
+        const admUserList = this.state.admUserList;
         return (
-            <div className="className">
+
+            this.state.userinfoState ? <div className="className">
                 <Header/>
                 <Left/>
                 <div className="ysx-userInfos">
@@ -70,7 +73,7 @@ class userInfos extends Component {
                     </div>
                 </div>
                 <Footer/>
-            </div>
+            </div> : <NoLogin/>
         );
     }
 
@@ -80,15 +83,26 @@ class userInfos extends Component {
     };
 
     _getUserOrder() {
-        axios.get("/admUserList")
-            .then((res) => {
-                this.setState({
-                    admUserList: res.data
+        let NowUserStates = localStorage.getItem("UserStates");
+        NowUserStates = JSON.parse(NowUserStates);
+        if (NowUserStates == null) {
+            this.setState({
+                userinfoState: false,
+            })
+        }
+        else if (NowUserStates == 1) {
+            axios.get("/admUserList")
+                .then((res) => {
+                    this.setState({
+                        admUserList: res.data,
+                        userinfoState: true
+                    })
                 })
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }
+
     };
 }
 

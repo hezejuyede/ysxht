@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
-import './product.less'
+import './product.css'
 
 import axios from 'axios';
 import PureRenderMixin from 'react-addons-pure-render-mixin'
@@ -9,20 +9,25 @@ import PureRenderMixin from 'react-addons-pure-render-mixin'
 import Header from '../../component/header/herder'
 import Footer from '../../component/footer/footer'
 import Left from '../../component/left/left'
+import NoLogin from '../../component/Nologin/Nologin'
+
 
 class product extends Component {
     constructor(props, context) {
         super(props, context);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+
         this.state = {
-            productInfo: []
+            productInfo: [],
+            userinfoState: false
         }
     }
 
     render() {
-        const productInfo = this.state.productInfo
+        const productInfo = this.state.productInfo;
+        const id = this.props.match.params.id;
         return (
-            <div className="className">
+            this.state.userinfoState ? <div className="className">
                 <Header/>
                 <Left/>
                 <div className="ysx-product">
@@ -83,8 +88,20 @@ class product extends Component {
                                         <span className="state-xj">下架</span>
                                     </p>
                                     <p className="product-template-cz">
-                                        <NavLink to={"/productDetails/"+index+this.props.match.params.id} className="cz-ck">查看</NavLink>
-                                        <NavLink to={"/productBj/"+index+this.props.match.params.id}     className="cz-bj">编辑</NavLink>
+                                        <NavLink
+                                            to={"/productDetails/" + index + this.props.match.params.id}
+                                            className="cz-ck">
+                                            查
+                                        </NavLink>
+                                        <NavLink
+                                            to={"/productBj/" + index + this.props.match.params.id}
+                                            className="cz-bj">
+                                            编
+                                        </NavLink>
+                                        <span className="cz-sc"
+                                              onClick={this.deleteProduct.bind(this, index, id)}>
+                                            删
+                                        </span>
                                     </p>
                                 </div>
                             })}
@@ -92,7 +109,7 @@ class product extends Component {
                     </div>
                 </div>
                 <Footer/>
-            </div>
+            </div> : <NoLogin/>
         );
     }
 
@@ -102,21 +119,49 @@ class product extends Component {
     };
 
     _getUserOrder() {
-        const id = this.props.match.params.id;
-        axios.get("/admProduct",  {
-            params: {
-                id: id
-            }
-        })
-            .then((res) => {
-                this.setState({
-                    productInfo: res.data[0].goodsImg
+        let NowUserStates = localStorage.getItem("UserStates");
+        NowUserStates = JSON.parse(NowUserStates);
+        if (NowUserStates == null) {
+            this.setState({
+                userinfoState: false,
+            })
+        }
+        else if (NowUserStates == 1) {
+            const id = this.props.match.params.id;
+            axios.get("/admProduct", {
+                params: {
+                    id: id
+                }
+            })
+                .then((res) => {
+                    this.setState({
+                        productInfo: res.data[0].goodsImg,
+                        userinfoState: true,
+                    })
                 })
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }
     };
+
+    deleteProduct(index, id) {
+
+
+        axios.post('/admDeleteProduct', {
+            index: index,
+            id: id,
+        }).then((res) => {
+            if (res.data == 1) {
+                alert("已经删除");
+                window.location.reload();
+            }
+        }).catch((err) => {
+            console.log(err)
+        })
+
+
+    }
 }
 
 export default product;

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './productBJ.less'
+import './productBJ.css'
 
 import axios from 'axios';
 import PureRenderMixin from 'react-addons-pure-render-mixin'
@@ -9,6 +9,7 @@ import Editor from 'wangeditor';
 import Header from '../../component/header/herder'
 import Footer from '../../component/footer/footer'
 import Left from '../../component/left/left'
+import NoLogin from '../../component/Nologin/Nologin'
 
 
 class productBJ extends Component {
@@ -18,6 +19,7 @@ class productBJ extends Component {
         this.state = {
             productInfo: [],
             productImg: [],
+            userinfoState: false
         }
     }
 
@@ -25,7 +27,8 @@ class productBJ extends Component {
         const productImg = this.state.productImg;
         const productInfo = this.state.productInfo;
         return (
-            <div className="ysx-productBJ">
+
+            this.state.userinfoState ? <div className="ysx-productBJ">
                 <Header/>
                 <Left/>
                 <div className="productBJ">
@@ -124,12 +127,10 @@ class productBJ extends Component {
                     </div>
                 </div>
                 <Footer/>
-            </div>
+            </div> : <NoLogin/>
         );
     }
-    componentWillMount(){
-
-    }
+    componentWillMount(){}
     componentDidMount() {
         this._getProductDetail();
         this.createProduct();
@@ -137,25 +138,48 @@ class productBJ extends Component {
 
 
     _getProductDetail() {
-        const str = this.props.match.params.id;
-        let id = str.slice(1);
-        let index = str.slice(0, 1);
-        axios.get("/admProductDetails", {
-            params: {
-                id: id
+        let NowUserStates = localStorage.getItem("UserStates");
+        NowUserStates = JSON.parse(NowUserStates);
+        if (NowUserStates == null) {
+            this.setState({
+                userinfoState: false,
+            })
+        }
+        else if (NowUserStates == 1) {
+            let str = this.props.match.params.id;
+            let l = str.length;
+            let id;
+            let index;
+            if (l <= 4) {
+                id = str.slice(1);
+                index = str.slice(0, 1);
+            } else if (l = 5) {
+                index = str.slice(0, 2);
+                id = str.slice(2);
+            } else if (l = 6) {
+                index = str.slice(0, 3);
+                id = str.slice(3);
             }
-        })
-            .then((res) => {
-                let goodsData = res.data[0].goodsImg;
-                this.setState({
-                    productInfo: goodsData[index].goodsInfo,
-                    productImg: goodsData[index].productImg,
-                    productdetails: goodsData[index].details
+            axios.get("/admProductDetails", {
+                params: {
+                    id: id
+                }
+            })
+                .then((res) => {
+                    let goodsData = res.data[0].goodsImg;
+                    this.setState({
+                        productInfo: goodsData[index].goodsInfo,
+                        productImg: goodsData[index].productImg,
+                        productdetails: goodsData[index].details,
+                        userinfoState: true
+                    })
                 })
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+                .catch((err) => {
+                    console.log(err)
+                })
+
+        }
+
     };
     createProduct() {
 

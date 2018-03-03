@@ -1,17 +1,25 @@
 import React, {Component} from 'react';
 import axios from 'axios'
-import './register.less'
+import './register.css'
 import Header from '../../component/header/herder'
 import Footer from '../../component/footer/footer'
 import Left from '../../component/left/left'
-import ReactDOM from 'react-dom';
+import NoLogin from '../../component/Nologin/Nologin'
+import PureRenderMixin from 'react-addons-pure-render-mixin'
 
 class register extends Component {
+    constructor(props, context) {
+        super(props, context);
+        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+        this.state = {
+            userinfoState: false
+        }
+    }
 
     render() {
-
         return (
-            <div className="">
+
+            this.state.userinfoState ? <div className="">
                 <Header/>
                 <Left/>
                 <div className="ysx-register">
@@ -36,7 +44,7 @@ class register extends Component {
                     </div>
                 </div>
                 <Footer/>
-            </div>
+            </div> : <NoLogin/>
         );
 
         function admRegister() {
@@ -74,6 +82,27 @@ class register extends Component {
         }
 
     }
+
+    componentDidMount() {
+        this._getRegister();
+
+    };
+
+    _getRegister() {
+        let NowUserStates = localStorage.getItem("UserStates");
+        NowUserStates = JSON.parse(NowUserStates);
+        if (NowUserStates == null) {
+            this.setState({
+                userinfoState: false,
+            })
+        }
+        else if (NowUserStates == 1) {
+            this.setState({
+                userinfoState: true,
+            })
+
+        }
+    };
 }
 
 export default register;

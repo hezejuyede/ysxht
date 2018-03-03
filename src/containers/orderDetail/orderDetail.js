@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './orderDetails.less'
+import './orderDetails.css'
 import axios from 'axios';
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 
@@ -7,7 +7,7 @@ import PureRenderMixin from 'react-addons-pure-render-mixin'
 import Header from '../../component/header/herder'
 import Footer from '../../component/footer/footer'
 import Left from '../../component/left/left'
-
+import NoLogin from '../../component/Nologin/Nologin'
 
 class orderDetail extends Component {
     constructor(props, context) {
@@ -16,6 +16,7 @@ class orderDetail extends Component {
         this.state = {
             orderDetail: [],
             orderInfo: [],
+            userinfoState:false
         }
     }
 
@@ -23,7 +24,7 @@ class orderDetail extends Component {
         const orderDetail = this.state.orderDetail;
         const orderInfo = this.state.orderInfo;
         return (
-            <div className="ysx-orderDetail">
+            this.state.userinfoState ? <div className="ysx-orderDetail">
                 <Header/>
                 <Left/>
                 <div className="myOrderDetail">
@@ -103,32 +104,41 @@ class orderDetail extends Component {
                     </div>
                 </div>
                 <Footer/>
-            </div>
+            </div> : <NoLogin/>
         );
     }
 
     componentDidMount() {
-
         this._getOrderDetail()
-
     }
-
     _getOrderDetail() {
-        const id = this.props.match.params.id;
-        axios.get("/admUserOrderDetail", {
-            params: {
-                id: id
-            }
-        })
-            .then((res) => {
-                this.setState({
-                    orderDetail: res.data[0].orderDetail,
-                    orderInfo: res.data
+        let NowUserStates = localStorage.getItem("UserStates");
+        NowUserStates = JSON.parse(NowUserStates);
+        if (NowUserStates == null) {
+            console.log(this.state.userinfoState);
+            this.setState({
+                userinfoState: false,
+            })
+        }
+        else if (NowUserStates == 1) {
+
+            const id = this.props.match.params.id;
+            axios.get("/admUserOrderDetail", {
+                params: {
+                    id: id
+                }
+            })
+                .then((res) => {
+                    this.setState({
+                        orderDetail: res.data[0].orderDetail,
+                        orderInfo: res.data,
+                        userinfoState: true,
+                    })
                 })
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }
     }
 }
 

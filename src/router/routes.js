@@ -8,7 +8,6 @@ import {
 } from 'react-router-dom';
 import Home from '../containers/home/home';
 import Register from '../containers/register/register'
-import Login from '../containers/login/login'
 import setUp from '../containers/setUp/setUp'
 import Message from '../containers/message/message'
 import UserInfos from '../containers/userInfos/userInfos'
@@ -20,16 +19,18 @@ import productBj from '../containers/productBJ/productBJ'
 import orderDetails from '../containers/orderDetail/orderDetail'
 import productAll from '../containers/productAll/productAll'
 import productAdd from '../containers/productAdd/productAdd'
+import indexLogin from '../containers/indexLogin/indexLogin'
+
 class Routers extends Component {
     render() {
         return (
             <Router history={this.props.history}>
                 <Switch>
+                    <Route path="/indexLogin" component={indexLogin}>
+                    </Route>
                     <Route path="/home" component={Home}>
                     </Route>
                     <Route path="/Register" component={Register}>
-                    </Route>
-                    <Route path="/Login" component={Login}>
                     </Route>
                     <Route path="/setUp" component={setUp}>
                     </Route>
@@ -53,7 +54,7 @@ class Routers extends Component {
                     </Route>
                     <Route path="/productDetails/:id" component={productDetails}>
                     </Route>
-                    <Redirect from="/" to="/home">
+                    <Redirect from="/" to="/indexLogin">
                     </Redirect>
                 </Switch>
             </Router>

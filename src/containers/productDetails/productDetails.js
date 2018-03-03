@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './productDetails.less'
+import './productDetails.css'
 import axios from 'axios';
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 
@@ -8,6 +8,7 @@ import PureRenderMixin from 'react-addons-pure-render-mixin'
 import Header from '../../component/header/herder'
 import Footer from '../../component/footer/footer'
 import Left from '../../component/left/left'
+import NoLogin from '../../component/Nologin/Nologin'
 
 class productDetails extends Component {
     constructor(props, context) {
@@ -17,7 +18,7 @@ class productDetails extends Component {
             productInfo: [],
             productImg:[],
             productDetailImg:[],
-
+            userinfoState: false
         }
     }
 
@@ -25,13 +26,13 @@ class productDetails extends Component {
         const productImg = this.state.productImg;
         const productInfo = this.state.productInfo;
         return (
-            <div className="ysx-productDetails">
+            this.state.userinfoState ? <div className="ysx-productDetails">
                 <Header/>
                 <Left/>
                 <div className="productDetails">
-                    <div  className="productDetails-template">
+                    <div className="productDetails-template">
                         {productInfo.map((item, index) => {
-                            return <div key={index}className="">
+                            return <div key={index} className="">
                                 <div className="productDetails-name">
                                     <p className="leftP">商品名称:</p>
                                     <p className="rightP">{item.name}</p>
@@ -64,20 +65,20 @@ class productDetails extends Component {
                                 </div>
                             </div>
                         })}
-                            <div className="productDetails-template-xq">
-                                <p className="template-xq-top">商品详情</p>
+                        <div className="productDetails-template-xq">
+                            <p className="template-xq-top">商品详情</p>
 
-                                {productImg.map((item, index) => {
-                                    return   <div key={index} className="template-xq-bottom">
-                                        <img src={item.pimg} alt=""/>
-                                    </div>
-                                })}
+                            {productImg.map((item, index) => {
+                                return <div key={index} className="template-xq-bottom">
+                                    <img src={item.pimg} alt=""/>
+                                </div>
+                            })}
 
-                            </div>
                         </div>
+                    </div>
                 </div>
                 <Footer/>
-            </div>
+            </div> : <NoLogin/>
         );
     }
 
@@ -87,37 +88,48 @@ class productDetails extends Component {
     };
 
     _getProductDetail() {
-        let  str = this.props.match.params.id;
-        let  l =str.length;
-        let id;
-        let index;
-        if (l <= 4) {
-            id = str.slice(1);
-            index = str.slice(0, 1);
-        } else if (l = 5) {
-            index = str.slice(0, 2);
-            id = str.slice(2);
-        } else if (l = 6) {
-            index = str.slice(0, 3);
-            id = str.slice(3);
+        let NowUserStates = localStorage.getItem("UserStates");
+        NowUserStates = JSON.parse(NowUserStates);
+        if (NowUserStates == null) {
+            this.setState({
+                userinfoState: false,
+            })
         }
-
-        axios.get("/admProductDetails", {
-            params: {
-                id: id
+        else if (NowUserStates == 1) {
+            let  str = this.props.match.params.id;
+            let  l =str.length;
+            let id;
+            let index;
+            if (l <= 4) {
+                id = str.slice(1);
+                index = str.slice(0, 1);
+            } else if (l = 5) {
+                index = str.slice(0, 2);
+                id = str.slice(2);
+            } else if (l = 6) {
+                index = str.slice(0, 3);
+                id = str.slice(3);
             }
-        })
-            .then((res) => {
-                let goodsData = res.data[0].goodsImg;
-                this.setState({
-                    productInfo: goodsData[index].goodsInfo,
-                    productImg: goodsData[index].productImg,
-                    productdetails: goodsData[index].details
+
+            axios.get("/admProductDetails", {
+                params: {
+                    id: id
+                }
+            })
+                .then((res) => {
+                    let goodsData = res.data[0].goodsImg;
+                    console.log(goodsData[index].goodsInfo,)
+                    this.setState({
+                        productInfo: goodsData[index].goodsInfo,
+                        productImg: goodsData[index].productImg,
+                        productdetails: goodsData[index].details,
+                        userinfoState: true
+                    })
                 })
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }
     };
 }
 
