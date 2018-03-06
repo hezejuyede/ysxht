@@ -28,7 +28,7 @@ class Message extends Component {
                 <div className="message">
                     <Header/>
                     <Left/>
-                    <div id="ysx-message" className={this.state.leftState ? "rightMove" : "ysx-message"}>
+                    <div id="ysx-message" className={this.state.leftState ? "rightMoveMessage" : "ysx-message"}>
                         <div className="">
                             <div className="sttz" onClick={this.showSttz.bind(this)}>
                                 <div className="sttz-top">

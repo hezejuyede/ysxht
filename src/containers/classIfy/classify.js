@@ -26,7 +26,7 @@ class classify extends Component {
                 <div className="ysx-classify">
                     <Header/>
                     <Left/>
-                    <div id="" className={this.state.leftState ? "rightMove5" : "classify"}>
+                    <div id="" className={this.state.leftState ? "rightMoveClassify" : "classify"}>
                         <div>
                             <div className="classify-title">
                                 <div className="classify-title-left">

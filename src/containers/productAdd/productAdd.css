@@ -1,37 +1,34 @@
-.yc-home{
+.ysx-productAdd{
   overflow-x: hidden;
   position: relative;
+  width: 100%;
+  height: 100%;
 
 }
-.content-home{
-  width: 100%;
-  height: 500px;
-  position: absolute;
-  top:80px;
-  left:0;
-  transition: all 1.5s;
-}
 
-.rightMove{
+
+.rightMove11{
   width: 100%;
-  height: 500px;
   position: absolute;
   top:80px;
   left: 187px;
   transition: all 1.5s;
 }
 
-
-
-
 .productAdd{
-  overflow: hidden;
+  width: 100%;
+  position: absolute;
+  top:80px;
+  left:0;
+  transition: all 1.5s;
 
 }
 .productAdd-top{
   width: 95%;
   font-size: 20px;
   margin: 10px auto;
+  color: #d93f30;
+  font-size: 20px;
 }
 .productAdd-bottom-top button{
   width: 100px;

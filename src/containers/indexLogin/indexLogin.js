@@ -17,8 +17,9 @@ class indexLogin extends Component {
             userPassword: "",
             unameHelp: "",
             upwdHelp: "",
-            ModalMessage:"登录成功",
-            showHideModal:false
+            ModalMessage:"",
+            showHideModal:false,
+            LoginClick: true
         }
     }
 
@@ -59,7 +60,10 @@ class indexLogin extends Component {
                                        placeholder="请输入密码"/>
                                 <p className="help-block">{this.state.upwdHelp}</p>
                             </label>
-                            <button onClick={this.admLogin.bind(this)}>登录</button>
+                            <button onClick={this.admLogin.bind(this)}
+                                    disabled={!this.state.LoginClick}>
+                                {this.state.LoginClick ? '登录' : '登录中'}
+                            </button>
                         </div>
                     </section>
                 </main>
@@ -97,6 +101,9 @@ class indexLogin extends Component {
     };
 
     admLogin(e) {
+        this.setState({
+            LoginClick:false
+        });
         if (this.state.userName === "" || this.state.userName === null) {
             this.setState({
                 unameHelp: "* 用户名不能为空"
@@ -108,6 +115,7 @@ class indexLogin extends Component {
             })
         }
         else if (this.state.userPassword !== "" && this.state.userName !== "") {
+
             axios.post("/admLogin", {
                 username: this.state.userName,
                 password: this.state.userPassword,
@@ -123,18 +131,60 @@ class indexLogin extends Component {
                     localStorage.setItem("userInfos", userInfo);
                     localStorage.setItem("UserStates", UserState);
                     this.setState({
+                        ModalMessage: "登录成功",
                         showHideModal: true
                     });
-                    console.log(this.state.showHideModal)
+                    const that = this;
 
-                    /*window.location = "/home";*/
+                    function a() {
+                        that.setState({
+                            ModalMessage: "",
+                            showHideModal: false
+                        });
+                        window.location = "/home"
+                    }
+
+
+                    setTimeout(a, 2000);
 
 
                 } else if (res.data == -1) {
+                    this.setState({
+                        ModalMessage: "密码错误",
+                        showHideModal: true,
+                        LoginClick: true
+                    });
+                    const that = this;
 
-                    alert("密码错误")
+                    function b() {
+                        that.setState({
+                            ModalMessage: "",
+                            showHideModal: false,
+                            LoginClick: true
+                        });
+                    }
+
+
+                    setTimeout(b, 2000);
+
                 } else if (res.data == 2) {
-                    alert("该用户未注册")
+                    this.setState({
+                        ModalMessage: "用户不存在",
+                        showHideModal: true
+
+                    });
+                    const that = this;
+
+                    function c() {
+                        that.setState({
+                            ModalMessage: "",
+                            showHideModal: false,
+                            LoginClick: true
+                        });
+                    }
+
+
+                    setTimeout(c, 2000);
                 }
 
             }).catch((err) => {
@@ -143,6 +193,8 @@ class indexLogin extends Component {
         }
 
     }
+
+
 
 
 

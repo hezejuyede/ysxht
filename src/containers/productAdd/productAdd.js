@@ -7,9 +7,9 @@ import Editor from 'wangeditor';
 
 
 import Header from '../../component/header/herder'
-import Footer from '../../component/footer/footer'
 import Left from '../../component/left/left'
 import NoLogin from '../../component/Nologin/Nologin'
+import { connect } from 'react-redux'
 
 class productAdd extends Component {
     constructor(props, context) {
@@ -36,122 +36,130 @@ class productAdd extends Component {
             price:'',
             gg:'',
             name:'',
-            userinfoState: false
+            userinfoState: false,
+            leftState: this.props.iconState.iconState.iconState
         }
     }
 
     render() {
         return (
 
-            this.state.userinfoState ? <div className="ysx-productAdd">
-                <Header/>
-                <Left/>
-                <div className="productAdd">
-                    <div className="productAdd-top">
-                        商品管理 -- 增加商品
-                    </div>
-                    <div className="productAdd-bottom">
-                        <div className="productAdd-bottom-top">
-                            <div className="productAdd-bottom-div">
-                                <div className="productAdd-bottom-div-left">
-                                    <p>商品名称:</p>
-                                </div>
-                                <div className="productAdd-bottom-div-right">
-                                    <input type="text" value={this.state.name} onChange={this.name}/>
-                                </div>
-                            </div>
-                            <div className="productAdd-bottom-div">
-                                <div className="productAdd-bottom-div-left">
-                                    <p>商品描述:</p>
-                                </div>
-                                <div className="productAdd-bottom-div-right">
-                                    <input type="text" value={this.state.gg} onChange={this.gg}/>
-                                </div>
-                            </div>
-                            <div className="productAdd-bottom-div">
-                                <div className="productAdd-bottom-div-left">
-                                    <p>商品价格:</p>
-                                </div>
-                                <div className="productAdd-bottom-div-right">
-                                    <input type="text" value={this.state.price} onChange={this.price}/>
-                                </div>
-                            </div>
-                            <div className="productAdd-bottom-div">
-                                <div className="productBJ-bottom-div-left">
-                                    <p>商品库存:</p>
-                                </div>
-                                <div className="productAdd-bottom-div-right">
-                                    <input type="text" value={this.state.number} onChange={this.number}/>
-                                </div>
-                            </div>
-                            <div className="productAdd-bottom-div">
-                                <div className="productBJ-bottom-div-left">
-                                    <p>商品ID:</p>
-                                </div>
-                                <div className="productAdd-bottom-div-right">
-                                    <input type="text" value={this.state.id} onChange={this.id}/>
-                                </div>
-                            </div>
-                            <div className="productAdd-bottom-div">
-                                <div className="productBJ-bottom-div-left">
-                                    <p>销售状态:</p>
-                                </div>
-                                <div className="productAdd-bottom-div-right">
-                                    <input type="text" value={this.state.state1} onChange={this.state1}/>
-                                </div>
-                            </div>
-                            <div className="productAdd-bottom-div">
-                                <div className="productBJ-bottom-div-left">
-                                    <p>默认数量:</p>
-                                </div>
-                                <div className="productAdd-bottom-div-right">
-                                    <input type="text" value={this.state.sl} onChange={this.sl}/>
-                                </div>
-                            </div>
-                            <div className="productAdd-bottom-div">
-                                <div className="productAdd-bottom-div-left">
-                                    <p>所属分类:</p>
-                                </div>
-                                <div className="productAdd-bottom-div-right">
-                                    <select value={this.state.fl} onChange={this.fl}>
-                                        <option value="螃蟹类">螃蟹类</option>
-                                        <option value="大虾类">大虾类</option>
-                                        <option value="鲜鱼类">鲜鱼类</option>
-                                        <option value="羊肉类">羊肉类</option>
-                                        <option value="牛肉类">牛肉类</option>
-                                        <option value="猪肉类">猪肉类</option>
-                                        <option value="火锅丸">火锅丸</option>
-                                        <option value="调味料">调味料</option>
-                                        <option value="面点类">面点类</option>
-                                        <option value="鸡系列">鸡系列</option>
-                                        <option value="鸭系列">鸭系列</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="productAdd-bottom-div">
-                                <div className="productAdd-bottom-div-left">
-                                    <p>添加图片:</p>
-                                </div>
-                                <div className="productAdd-bottom-div-right">
-                                    <input type="file" value={this.state.img} onChange={this.img}/>
-                                </div>
-                            </div>
-                            <button type="button" onClick={this.addProduct}>提交信息</button>
+            this.state.userinfoState
+                ?
+                <div className="ysx-productAdd">
+                    <Header/>
+                    <Left/>
+                    <div className={this.state.leftState ? "rightMove11" : "productAdd"}>
+                        <div className="productAdd-top">
+                            商品管理 -- 增加商品
                         </div>
-                        <div className="productAdd-bottom-bottom">
-                            <p className="productXQ">商品详情:</p>
-                            <div id="editor">
+                        <div className="productAdd-bottom">
+                            <div className="productAdd-bottom-top">
+                                <div className="productAdd-bottom-div">
+                                    <div className="productAdd-bottom-div-left">
+                                        <p>商品名称:</p>
+                                    </div>
+                                    <div className="productAdd-bottom-div-right">
+                                        <input type="text" value={this.state.name} onChange={this.name}/>
+                                    </div>
+                                </div>
+                                <div className="productAdd-bottom-div">
+                                    <div className="productAdd-bottom-div-left">
+                                        <p>商品描述:</p>
+                                    </div>
+                                    <div className="productAdd-bottom-div-right">
+                                        <input type="text" value={this.state.gg} onChange={this.gg}/>
+                                    </div>
+                                </div>
+                                <div className="productAdd-bottom-div">
+                                    <div className="productAdd-bottom-div-left">
+                                        <p>商品价格:</p>
+                                    </div>
+                                    <div className="productAdd-bottom-div-right">
+                                        <input type="text" value={this.state.price} onChange={this.price}/>
+                                    </div>
+                                </div>
+                                <div className="productAdd-bottom-div">
+                                    <div className="productBJ-bottom-div-left">
+                                        <p>商品库存:</p>
+                                    </div>
+                                    <div className="productAdd-bottom-div-right">
+                                        <input type="text" value={this.state.number} onChange={this.number}/>
+                                    </div>
+                                </div>
+                                <div className="productAdd-bottom-div">
+                                    <div className="productBJ-bottom-div-left">
+                                        <p>商品ID:</p>
+                                    </div>
+                                    <div className="productAdd-bottom-div-right">
+                                        <input type="text" value={this.state.id} onChange={this.id}/>
+                                    </div>
+                                </div>
+                                <div className="productAdd-bottom-div">
+                                    <div className="productBJ-bottom-div-left">
+                                        <p>销售状态:</p>
+                                    </div>
+                                    <div className="productAdd-bottom-div-right">
+                                        <input type="text" value={this.state.state1} onChange={this.state1}/>
+                                    </div>
+                                </div>
+                                <div className="productAdd-bottom-div">
+                                    <div className="productBJ-bottom-div-left">
+                                        <p>默认数量:</p>
+                                    </div>
+                                    <div className="productAdd-bottom-div-right">
+                                        <input type="text" value={this.state.sl} onChange={this.sl}/>
+                                    </div>
+                                </div>
+                                <div className="productAdd-bottom-div">
+                                    <div className="productAdd-bottom-div-left">
+                                        <p>所属分类:</p>
+                                    </div>
+                                    <div className="productAdd-bottom-div-right">
+                                        <select value={this.state.fl} onChange={this.fl}>
+                                            <option value="螃蟹类">螃蟹类</option>
+                                            <option value="大虾类">大虾类</option>
+                                            <option value="鲜鱼类">鲜鱼类</option>
+                                            <option value="羊肉类">羊肉类</option>
+                                            <option value="牛肉类">牛肉类</option>
+                                            <option value="猪肉类">猪肉类</option>
+                                            <option value="火锅丸">火锅丸</option>
+                                            <option value="调味料">调味料</option>
+                                            <option value="面点类">面点类</option>
+                                            <option value="鸡系列">鸡系列</option>
+                                            <option value="鸭系列">鸭系列</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="productAdd-bottom-div">
+                                    <div className="productAdd-bottom-div-left">
+                                        <p>添加图片:</p>
+                                    </div>
+                                    <div className="productAdd-bottom-div-right">
+                                        <input type="file" value={this.state.img} onChange={this.img}/>
+                                    </div>
+                                </div>
+                                <button type="button" onClick={this.addProduct}>提交信息</button>
                             </div>
-                        </div>
+                            <div className="productAdd-bottom-bottom">
+                                <p className="productXQ">商品详情:</p>
+                                <div id="editor">
+                                </div>
+                            </div>
 
+                        </div>
                     </div>
                 </div>
-
-                <Footer/>
-
-            </div> : <NoLogin/>
+                :
+                <NoLogin/>
         );
     }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            leftState: nextProps.iconState.iconState.iconState,
+        });
+    };
 
     componentWillMount() {
         let NowUserStates = localStorage.getItem("UserStates");
@@ -265,4 +273,19 @@ class productAdd extends Component {
     };
 }
 
-export default productAdd;
+function mapStateToProps(state) {
+
+    return {
+        iconState: state
+    }
+
+}
+
+function mapDispatchToProps(dispatch) {
+    return {}
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(productAdd)

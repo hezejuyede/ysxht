@@ -28,7 +28,6 @@ class modal extends Component {
         this.setState({
             showHideModal: nextProps.showHideModal,
         });
-        console.log(this.state.showHideModal)
 
     }
 

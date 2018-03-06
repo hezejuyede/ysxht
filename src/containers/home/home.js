@@ -25,7 +25,6 @@ class home extends Component {
             DFK:0,
             DFH:0,
             WFK:0
-
         }
     }
 
@@ -37,7 +36,7 @@ class home extends Component {
                     <Header/>
                     <Left/>
                     <div id="contentHome"
-                         className={this.state.leftState ? "rightMove" : "content-home"}>
+                         className={this.state.leftState ? "rightMoveHome" : "content-home"}>
                         <div className="">
                             <h2 className="home-top">
                                 首页

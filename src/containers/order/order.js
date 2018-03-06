@@ -28,7 +28,7 @@ class order extends Component {
                 <div className="ysx-order">
                     <Header/>
                     <Left/>
-                    <div id="myOrder" className={this.state.leftState ? "rightMove1" : "myOrder"}>
+                    <div id="myOrder" className={this.state.leftState ? "rightMoveUserOrder" : "myOrder"}>
                         <div>
                             <div className="myOrder-title">
                                 订单管理
