@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
-import './home.css'
+import './home.css';
 import Header from '../../component/header/herder'
 import Footer from '../../component/footer/footer'
 import Left from '../../component/left/left'
+import axios from 'axios'
+import {Link} from 'react-router-dom'
+
 
 import NoLogin from '../../component/Nologin/Nologin'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
-
-
+import { connect } from 'react-redux'
 
 class home extends Component {
     constructor(props, context) {
@@ -15,50 +17,104 @@ class home extends Component {
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {
             data: [],
-            userinfoState:false,
-            rightMove:true
+            userinfoState: false,
+            leftState: this.props.iconState.iconState.iconState,
+            ProductNumber:0,
+            UserNumber:0,
+            OrderNumber:0,
+            DFK:0,
+            DFH:0,
+            WFK:0
+
         }
     }
+
     render() {
         return (
-            this.state.userinfoState ?
+            this.state.userinfoState
+                ?
                 <div className="yc-home">
                     <Header/>
                     <Left/>
-                    <div className="content-home" id="contentHome">
-                        <h2 className="home-top" onClick={this.rightMove.bind(this)}>首页</h2>
-                        <div className="home-bottom">
-                            <div className="home-bottom-user">
-                                <p className="">5147</p>
-                                <p className="">
-                                    <i className="iconfont icon-yonghu1"></i>
-                                    <span>用户总数</span>
-                                </p>
-                            </div>
-                            <div className="home-bottom-product">
-                                <p className="">199</p>
-                                <p className="">
-                                    <i className="iconfont icon-shangpin1"></i>
-                                    <span>商品总数</span>
-                                </p>
-                            </div>
-                            <div className="home-bottom-order">
-                                <p className="">5226</p>
-                                <p className="">
-                                    <i className="iconfont icon-dingdan-copy"></i>
-                                    <span>订单总数</span>
-                                </p>
+                    <div id="contentHome"
+                         className={this.state.leftState ? "rightMove" : "content-home"}>
+                        <div className="">
+                            <h2 className="home-top">
+                                首页
+                            </h2>
+                            <div className="home-bottom">
+                                <div className="home-bottom-one">
+                                    <div className="home-bottom-FOrder">
+                                        <i className="iconfont icon-weifukuan"></i>
+                                        <div className="home-bottom-right">
+                                            <p className="">{this.state.WFK}</p>
+                                            <p className="">等待付款</p>
+                                        </div>
+                                    </div>
+                                    <div className="home-bottom-HOrder">
+                                        <i className="iconfont icon-ccgl-yundanguanli-1"></i>
+                                        <div className="home-bottom-right">
+                                            <p>{this.state.DFH}</p>
+                                            <p>等待发货</p>
+                                        </div>
+                                    </div>
+                                    <div className="home-bottom-TOrder">
+                                        <i className="iconfont icon-chulizhong"></i>
+                                        <div className="home-bottom-right">
+                                            <p>{this.state.DTK}</p>
+                                            <p>等待退款</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="home-bottom-two">
+                                    <div className="home-bottom-user">
+                                        <i className="iconfont icon-kehuqunzu"></i>
+                                        <div className="home-bottom-right">
+                                            <p className="">{this.state.UserNumber}</p>
+                                            <p className="">用户总数</p>
+                                        </div>
+                                    </div>
+                                    <div className="home-bottom-product">
+                                        <i className="iconfont icon-shangpin-"></i>
+                                        <div className="home-bottom-right">
+                                            <p className="">{this.state.ProductNumber}</p>
+                                            <p className="">商品总数</p>
+                                        </div>
+                                    </div>
+                                    <div className="home-bottom-product">
+                                        <i className="iconfont icon-dingdan1"></i>
+                                        <div className="home-bottom-right">
+                                            <p className="">{this.state.OrderNumber}</p>
+                                            <p className="">订单总数</p>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                     <Footer/>
                 </div>
-                : <NoLogin/>
+                :
+                <NoLogin/>
 
         );
     }
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            leftState: nextProps.iconState.iconState.iconState,
+        });
+    }
+
     componentWillMount() {
         this._getHome();
+        this._getUserNumber();
+        this._getOrderNumber();
+        this._getProductNumber();
+        this._getWFK();
+        this._getDFH();
+        this._getDTK();
+
     };
 
     _getHome() {
@@ -77,21 +133,102 @@ class home extends Component {
         }
 
     };
-    rightMove(){
-        let right = document.querySelector("#contentHome");
-        if (this.state.rightMove === true) {
-            this.setState({
-                rightMove: false
-            });
-            right.className = "rightMove";
-        }
-        else if (this.state.rightMove === false) {
-            this.setState({
-                rightMove: true
-            });
-            right.className = "content-home";
-        }
+
+    _getUserNumber() {
+        axios.get("/admUserNumber")
+            .then((res) => {
+                this.setState({
+                    UserNumber: res.data
+                })
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+
+
     }
+
+    _getOrderNumber() {
+        axios.get("/admOrderNumber")
+            .then((res) => {
+                this.setState({
+                    OrderNumber: res.data
+                })
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
+    _getProductNumber() {
+        axios.get("/admProductNumber")
+            .then((res) => {
+                this.setState({
+                    ProductNumber: res.data
+                })
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
+    _getWFK() {
+        axios.get("/admOrderWFK")
+            .then((res) => {
+                this.setState({
+                    WFK: res.data.length
+                })
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
+    _getDFH() {
+        axios.get("/admOrderDFH")
+            .then((res) => {
+                this.setState({
+                    DFH: res.data.length
+                })
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+
+
+    }
+
+    _getDTK() {
+        axios.get("/admOrderDTK")
+            .then((res) => {
+                this.setState({
+                    DTK: res.data.length
+                })
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+
+
+    }
+
+
 }
 
-export default home;
+
+function mapStateToProps(state) {
+
+    return {
+        iconState: state
+    }
+
+}
+
+function mapDispatchToProps(dispatch) {
+    return {}
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(home)

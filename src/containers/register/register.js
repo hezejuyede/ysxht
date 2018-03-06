@@ -7,44 +7,53 @@ import Left from '../../component/left/left'
 import NoLogin from '../../component/Nologin/Nologin'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 
+import { connect } from 'react-redux'
+
+
+
 class register extends Component {
     constructor(props, context) {
         super(props, context);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {
-            userinfoState: false
+            userinfoState: false,
+            leftState: this.props.iconState.iconState.iconState
         }
     }
 
     render() {
         return (
 
-            this.state.userinfoState ? <div className="">
-                <Header/>
-                <Left/>
-                <div className="ysx-register">
-                    <div className="ysx-register-div">
-                        <div className="ysx-register-input">
-                            <i className="iconfont icon-yonghu"></i>
-                            <input type="text" id="username1" placeholder='用户名'/>
+            this.state.userinfoState
+                ?
+                <div className="register">
+                    <Header/>
+                    <Left/>
+                    <div className={this.state.leftState ? "rightMove" : "content-home"}>
+                        <div className="ysx-register-div">
+                            <div className="ysx-register-input">
+                                <i className="iconfont icon-iconfonticonfontwode1"></i>
+                                <input type="text" id="username1" placeholder='用户名'/>
+                            </div>
+                            <div className="ysx-register-input">
+                                <i className="iconfont icon-mima1"></i>
+                                <input type="password" id="password1" placeholder="密码"/>
+                            </div>
+                            <div className="ysx-register-input">
+                                <i className="iconfont icon-mima1"></i>
+                                <input type="password" id="password2" placeholder="确认密码"/>
+                            </div>
+                            <div className="ysx-register-input">
+                                <i className="iconfont icon-shouji1"></i>
+                                <input type="text" id="phoneNumber" placeholder="手机号"/>
+                            </div>
+                            <button onClick={admRegister}>确认注册</button>
                         </div>
-                        <div className="ysx-register-input">
-                            <i className="iconfont icon-mima1"></i>
-                            <input type="password" id="password1" placeholder="密码"/>
-                        </div>
-                        <div className="ysx-register-input">
-                            <i className="iconfont icon-mima1"></i>
-                            <input type="password" id="password2" placeholder="确认密码"/>
-                        </div>
-                        <div className="ysx-register-input">
-                            <i className="iconfont icon-phone"></i>
-                            <input type="text" id="phoneNumber" placeholder="手机号"/>
-                        </div>
-                        <button onClick={admRegister}>确认注册</button>
                     </div>
+                    <Footer/>
                 </div>
-                <Footer/>
-            </div> : <NoLogin/>
+                :
+                <NoLogin/>
         );
 
         function admRegister() {
@@ -103,6 +112,28 @@ class register extends Component {
 
         }
     };
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            leftState: nextProps.iconState.iconState.iconState,
+        });
+    }
 }
 
-export default register;
+
+function mapStateToProps(state) {
+
+    return {
+        iconState: state
+    }
+
+}
+
+function mapDispatchToProps(dispatch) {
+    return {}
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(register)

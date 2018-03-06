@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
-import userinfo from './reducres';
+import iconState from './reducres';
+
 export default combineReducers({
-    userinfo
+    iconState
 })

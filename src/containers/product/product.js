@@ -11,6 +11,7 @@ import Footer from '../../component/footer/footer'
 import Left from '../../component/left/left'
 import NoLogin from '../../component/Nologin/Nologin'
 
+import { connect } from 'react-redux'
 
 class product extends Component {
     constructor(props, context) {
@@ -19,7 +20,8 @@ class product extends Component {
 
         this.state = {
             productInfo: [],
-            userinfoState: false
+            userinfoState: false,
+            leftState: this.props.iconState.iconState.iconState
         }
     }
 
@@ -27,95 +29,107 @@ class product extends Component {
         const productInfo = this.state.productInfo;
         const id = this.props.match.params.id;
         return (
-            this.state.userinfoState ? <div className="className">
-                <Header/>
-                <Left/>
-                <div className="ysx-product">
-                    <div className="product-top">
-                        <div className="product-top-left">
-                            <span>商品管理</span>
-                        </div>
-                        <div className="product-top-right">
-                            <i className="iconfont icon-add"></i>
-                            <NavLink to="/productAdd">添加商品</NavLink>
-                        </div>
+            this.state.userinfoState
+                ?
+                <div className="product">
+                    <Header/>
+                    <Left/>
+                    <div id="product" className={this.state.leftState ? "rightMove" : "ysx-product"}>
+                        <div className="">
+                            <div className="product-top">
+                                <div className="product-top-left">
+                                    <span>商品管理</span>
+                                </div>
+                                <div className="product-top-right">
+                                    <i className="iconfont icon-add"></i>
+                                    <NavLink to="/productAdd">添加商品</NavLink>
+                                </div>
 
-                    </div>
-                    <div className="product-cx">
-                        <div className="product-cx-left">
-                            <select>
-                                <option value="id">根据商品ID查询</option>
-                                <option value="name">根据商品名称查询</option>
-                            </select>
-                        </div>
-                        <div className="product-cx-right">
-                            <input type="text" placeholder="关键字"/>
-                            <button type="submit">查询</button>
-                        </div>
-                    </div>
-                    <div className="product-center">
-                        <div className="product-center-top">
-                            <p className="product-template-id">
-                                ID
-                            </p>
-                            <p className="product-template-title">
-                                商品名称
-                            </p>
-                            <p className="product-template-price">
-                                价格
-                            </p>
-                            <p className="product-template-state">
-                                状态
-                            </p>
-                            <p className="product-template-cz">
-                                操作
-                            </p>
-                        </div>
-                        <div className="product-center-bottom">
-                            {productInfo.map((item, index) => {
-                                return <div key={index} className="product-template">
+                            </div>
+                            <div className="product-cx">
+                                <div className="product-cx-left">
+                                    <select>
+                                        <option value="id">根据商品ID查询</option>
+                                        <option value="name">根据商品名称查询</option>
+                                    </select>
+                                </div>
+                                <div className="product-cx-right">
+                                    <input type="text" placeholder="关键字"/>
+                                    <button type="submit">查询</button>
+                                </div>
+                            </div>
+                            <div className="product-center">
+                                <div className="product-center-top">
                                     <p className="product-template-id">
-                                        {item.id}
+                                        ID
                                     </p>
                                     <p className="product-template-title">
-                                        {item.title}
+                                        商品名称
                                     </p>
                                     <p className="product-template-price">
-                                        {item.price}
+                                        价格
                                     </p>
                                     <p className="product-template-state">
-                                        <span className="state-zs">在售</span>
-                                        <span className="state-xj">下架</span>
+                                        状态
                                     </p>
                                     <p className="product-template-cz">
-                                        <NavLink
-                                            to={"/productDetails/" + index + this.props.match.params.id}
-                                            className="cz-ck">
-                                            查
-                                        </NavLink>
-                                        <NavLink
-                                            to={"/productBj/" + index + this.props.match.params.id}
-                                            className="cz-bj">
-                                            编
-                                        </NavLink>
-                                        <span className="cz-sc"
-                                              onClick={this.deleteProduct.bind(this, index, id)}>
-                                            删
-                                        </span>
+                                        操作
                                     </p>
                                 </div>
-                            })}
+                                <div className="product-center-bottom">
+                                    {productInfo.map((item, index) => {
+                                        return <div key={index} className="product-template">
+                                            <p className="product-template-id">
+                                                {item.id}
+                                            </p>
+                                            <p className="product-template-title">
+                                                {item.title}
+                                            </p>
+                                            <p className="product-template-price">
+                                                {item.price}
+                                            </p>
+                                            <p className="product-template-state">
+                                                <span className="state-zs">在售</span>
+                                                <span className="state-xj">下架</span>
+                                            </p>
+                                            <p className="product-template-cz">
+                                                <NavLink
+                                                    to={"/productDetails/" + index + this.props.match.params.id}
+                                                    className="cz-ck">
+                                                    查
+                                                </NavLink>
+                                                <NavLink
+                                                    to={"/productBj/" + index + this.props.match.params.id}
+                                                    className="cz-bj">
+                                                    编
+                                                </NavLink>
+                                                <span className="cz-sc"
+                                                      onClick={this.deleteProduct.bind(this, index, id)}>
+                                            删
+                                        </span>
+                                            </p>
+                                        </div>
+                                    })}
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <Footer/>
                 </div>
-                <Footer/>
-            </div> : <NoLogin/>
+                :
+                <NoLogin/>
         );
     }
 
     componentDidMount() {
         this._getUserOrder();
 
+    };
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            leftState: nextProps.iconState.iconState.iconState,
+        });
     };
 
     _getUserOrder() {
@@ -164,5 +178,21 @@ class product extends Component {
     }
 }
 
-export default product;
 
+
+function mapStateToProps(state) {
+
+    return {
+        iconState: state
+    }
+
+}
+
+function mapDispatchToProps(dispatch) {
+    return {}
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(product)

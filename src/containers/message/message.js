@@ -7,6 +7,7 @@ import Left from '../../component/left/left'
 import NoLogin from '../../component/Nologin/Nologin'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 
+import { connect } from 'react-redux'
 
 class Message extends Component {
     constructor(props, context) {
@@ -14,62 +15,72 @@ class Message extends Component {
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {
             data: [],
-            userinfoState: false
+            userinfoState: false,
+            leftState: this.props.iconState.iconState.iconState
         }
     }
 
     render() {
         return (
 
-            this.state.userinfoState ? <div className="className">
-                <Header/>
-                <Left/>
-                <div className="ysx-message">
-                    <div className="sttz" onClick={this.showSttz.bind(this)}>
-                        <div className="sttz-top">
-                            <div className="sttz-top-left">
-                                <i className="iconfont icon-xiaoxi2"></i>
+            this.state.userinfoState
+                ?
+                <div className="message">
+                    <Header/>
+                    <Left/>
+                    <div id="ysx-message" className={this.state.leftState ? "rightMove" : "ysx-message"}>
+                        <div className="">
+                            <div className="sttz" onClick={this.showSttz.bind(this)}>
+                                <div className="sttz-top">
+                                    <div className="sttz-top-left">
+                                        <i className="iconfont icon-laba"></i>
+                                    </div>
+                                    <div className="sttz-top-center">
+                                        <p className="">系统通知</p>
+                                        <p className="">无未读信息</p>
+                                    </div>
+                                    <div className="sttz-top-right">
+                                        <i className="iconfont icon-right-trangle mone1"></i>
+                                        <i className="iconfont icon-down-trangle1 mone2"></i>
+                                    </div>
+                                </div>
+                                <div className="sttz-bottom mone">
+                                    <p className="">无未读信息</p>
+                                </div>
                             </div>
-                            <div className="sttz-top-center">
-                                <p className="">系统通知</p>
-                                <p className="">无未读信息</p>
+                            <div className="xtxx" onClick={this.showXtxx.bind(this)}>
+                                <div className="sttz-top">
+                                    <div className="sttz-top-left">
+                                        <i className="iconfont icon-xiaoxi1"></i>
+                                    </div>
+                                    <div className="sttz-top-center">
+                                        <p className="">系统通知</p>
+                                        <p className="">无未读信息</p>
+                                    </div>
+                                    <div className="sttz-top-right">
+                                        <i className="iconfont icon-right-trangle mtwo1"></i>
+                                        <i className="iconfont icon-down-trangle1 mtwo2"></i>
+                                    </div>
+                                </div>
+                                <div className="sttz-bottom mtwo">
+                                    <p className="">无未读信息</p>
+                                </div>
                             </div>
-                            <div className="sttz-top-right">
-                                <i className="iconfont icon-right-trangle mone1"></i>
-                                <i className="iconfont icon-down-trangle1 mone2"></i>
-                            </div>
-                        </div>
-                        <div className="sttz-bottom mone">
-                            <p className="">无未读信息</p>
                         </div>
                     </div>
-                    <div className="xtxx" onClick={this.showXtxx.bind(this)}>
-                        <div className="sttz-top">
-                            <div className="sttz-top-left">
-                                <i className="iconfont icon-tuiguang"></i>
-                            </div>
-                            <div className="sttz-top-center">
-                                <p className="">系统通知</p>
-                                <p className="">无未读信息</p>
-                            </div>
-                            <div className="sttz-top-right">
-                                <i className="iconfont icon-right-trangle mtwo1"></i>
-                                <i className="iconfont icon-down-trangle1 mtwo2"></i>
-                            </div>
-                        </div>
-                        <div className="sttz-bottom mtwo">
-                            <p className="">无未读信息</p>
-                        </div>
-                    </div>
+                    <Footer/>
                 </div>
-                <Footer/>
-            </div> : <NoLogin/>
+                : <NoLogin/>
         );
     }
     componentWillMount() {
         this._Message();
     };
-
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            leftState: nextProps.iconState.iconState.iconState,
+        });
+    }
     _Message() {
         let NowUserStates = localStorage.getItem("UserStates");
         NowUserStates = JSON.parse(NowUserStates);
@@ -124,4 +135,19 @@ class Message extends Component {
     };
 }
 
-export default Message;
+function mapStateToProps(state) {
+
+    return {
+        iconState: state
+    }
+
+}
+
+function mapDispatchToProps(dispatch) {
+    return {}
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Message)

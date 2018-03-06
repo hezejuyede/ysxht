@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import img from '../../common/imgs/logoB.png';
 import axios from 'axios';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-
+import Modal from '../../component/modal/modal'
 import './indexLogin.css';
 import '../../common/icon/iconfont.css';
 
@@ -16,13 +16,18 @@ class indexLogin extends Component {
             userName: "",
             userPassword: "",
             unameHelp: "",
-            upwdHelp: ""
+            upwdHelp: "",
+            ModalMessage:"登录成功",
+            showHideModal:false
         }
     }
 
     render() {
         return (
             <div className="indexLogin">
+                <Modal
+                    ModalMessage={this.state.ModalMessage}
+                    showHideModal={this.state.showHideModal} />
                 <header className="indexLogin-logo">
                     <img src={img}/>
                 </header>
@@ -108,7 +113,6 @@ class indexLogin extends Component {
                 password: this.state.userPassword,
             }).then((res) => {
                 if (res.data.login == 1) {
-                    alert("登录成功");
                     let userInfo = {
                         username: res.data.username,
                         useravatar: res.data.useravatar
@@ -118,7 +122,12 @@ class indexLogin extends Component {
                     UserState = JSON.stringify(UserState);
                     localStorage.setItem("userInfos", userInfo);
                     localStorage.setItem("UserStates", UserState);
-                    window.location = "/home"
+                    this.setState({
+                        showHideModal: true
+                    });
+                    console.log(this.state.showHideModal)
+
+                    /*window.location = "/home";*/
 
 
                 } else if (res.data == -1) {
@@ -134,6 +143,7 @@ class indexLogin extends Component {
         }
 
     }
+
 
 
 }

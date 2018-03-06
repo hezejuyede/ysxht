@@ -1,8 +1,27 @@
-.ysx-userInfos{
-  padding-left: 100px;
-  height: 480px;
-
+.yc-userInfo{
+  overflow-x: hidden;
+  position: relative;
 }
+
+.rightMove7{
+  width: 100%;
+  position: absolute;
+  top:80px;
+  left: 187px;
+  transition: all 1.5s;
+}
+.ysx-userInfos-div{
+  width: 100%;
+  position: absolute;
+  top:80px;
+  left:0;
+  transition: all 1.5s;
+}
+
+
+
+
+
 .ysx-userInfos-top{
   width: 95%;
   margin: 10px auto;
@@ -11,7 +30,10 @@
 }
 .ysx-userInfos-bottom{
   width: 95%;
+  height: 400px;
   margin: 0 auto;
+  background-color: #ffffff;
+  padding-top: 10px;
 
 }
 .user-template{
@@ -22,14 +44,25 @@
   justify-content: center;
 
 }
-.bottom-top{
+
+.bottom-top {
+  width: 95%;
   display: flex;
   height: 30px;
+  line-height: 30px;
   align-items: center;
   justify-content: center;
   background-color: #f0f0f0;
   font-size: 18px;
+  margin: 0 auto;
 }
+
+.bottom-center{
+  width: 95%;
+  margin: 0 auto;
+}
+
+
 .user-id {
   flex: 2;
   display: flex;

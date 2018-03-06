@@ -2,14 +2,13 @@ import * as actionTypes from '../constants/constants'
 
 
 const initialState = {
-    iconState:true
 };
-export default function userinfo(state= initialState , action) {
+export default function userinfo(state = initialState, action) {
     switch (action.type) {
         case actionTypes.ICON_LIFT:
-            return action.data;
+            return Object.assign({}, state,action.data);
         case actionTypes.ICON_RIGHT:
-            return action.data;
+            return Object.assign({}, state,action.data);
         default:
             return state
 

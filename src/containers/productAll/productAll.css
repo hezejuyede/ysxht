@@ -1,9 +1,47 @@
+.productAll{
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+}
+
+.rightMove3{
+  width: 100%;
+  margin: 0 auto;
+  position: absolute;
+  top: 80px;
+  left: 187px;
+  transition: all 1.5s;
+}
+
+
 .productAll-div{
+  width: 100%;
+  margin: 0 auto;
+  position: absolute;
+  top:80px;
+  left:0;
+  transition: all 1.5s;
+
+}
+
+#productAll-div>div{
   width: 90%;
   margin: 0 auto;
-  padding-left: 100px;
-  overflow: hidden;
 }
+
+
+.productAll-div>div{
+  width: 90%;
+  margin: 0 auto;
+}
+
+
+
+
+
+
 .productAll-div-top{
   height: 50px;
   line-height: 50px;
@@ -53,6 +91,7 @@
   width: 100%;
   height: 30px;
   margin: 35px auto;
+  background-color: #ffffff;
 }
 
 
@@ -82,13 +121,18 @@
   font-size: 16px;
   border-radius: 10%;
 }
-.productAll-div-bottom a {
+#productAll-div a {
+  display: block;
+  width: 250px;
   float: left;
   border: 1px solid #f0f0f0;
+  text-align: center;
   margin: 10px;
+  background-color: #ffffff;
 
 }
-.productAll-div a span {
+#productAll-div a span {
+  display: block;
   color: #3EC455;
   font-size: 20px;
   margin: 10px;

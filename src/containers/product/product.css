@@ -1,8 +1,38 @@
-.ysx-product{
-  padding-left: 100px;
-  margin-bottom: 100px;
+.product{
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
+  height: 100%;
 
 }
+
+
+
+
+#product>div{
+  width: 100%;
+  height: 100%;
+}
+
+
+.rightMove{
+  width: 100%;
+  position: absolute;
+  top:80px;
+  left: 187px;
+  transition: all 1.5s;
+}
+
+
+.ysx-product{
+  width: 100%;
+  position: absolute;
+  top:80px;
+  left:0;
+  transition: all 1.5s;
+
+}
+
 
 .product-top{
   width: 95%;
@@ -83,7 +113,7 @@
 .product-center-top{
   width: 98%;
   height: 30px;
-  background-color: #f0f0f0;
+  background-color: #3ec455;
   margin: 0 auto;
   display: flex;
   align-items: center;

@@ -1,7 +1,34 @@
+.register{
+  overflow-x: hidden;
+  position: relative;
+
+
+
+}
+
+
+.rightMove9{
+  width: 100%;
+  height: 500px;
+  position: absolute;
+  top:80px;
+  left: 187px;
+  transition: all 1.5s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
 .ysx-register{
   width: 100%;
-  height: 480px;
-  padding-left: 200px;
+  height: 500px;
+  position: absolute;
+  top:80px;
+  left:0;
+  transition: all 1.5s;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,13 +36,15 @@
 
 }
 .ysx-register-div{
-  width: 90%;
+  width: 500px;
+  margin: 50px auto;
   height: 300px;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
 }
 .ysx-register-input{
   width: 90%;
@@ -27,9 +56,9 @@
   margin-bottom: 20px;
 }
 
-.ysx-register-input .icon-yonghu{
+.ysx-register-input .icon-iconfonticonfontwode1{
   font-size: 16px;
-  color: darkturquoise;
+  color: lightcoral;
 
 }
 .ysx-register-input .icon-mima1{
@@ -37,9 +66,9 @@
   color: lightcoral;
 }
 
-.ysx-register-input .icon-phone{
+.ysx-register-input .icon-shouji1{
   font-size: 16px;
-  color: saddlebrown;
+  color: lightcoral;
 }
 
 
@@ -50,7 +79,7 @@ input{
   padding-left: 10px;
   font-size: 14px;
 }
-.ysx-register button{
+.register button{
   width: 90%;
   height: 40px;
   background-color: #3EC455;
@@ -70,4 +99,11 @@ input{
   .ysx-register button{
     width: 400px;
   }
+}
+@media screen and (max-width: 550px) {
+  .ysx-register-div{
+    width: 90%;
+    margin: 20px auto;
+  }
+
 }

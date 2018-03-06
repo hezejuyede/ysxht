@@ -1,6 +1,3 @@
-.left{
-  float: left;
-}
 .top{
   height: 20px;
   background-color: #3ec455;
@@ -8,25 +5,25 @@
   top:0;
   left: 0;
   z-index: 999;
-
 }
 
-
+.left>div{
+  height: 500px;
+}
 
 .left-hide{
   width: 187px;
-  position: absolute;
-  top: 80px;
+  position: relative;
   left: -187px;
   transition: all 1.5s;
+  z-index: 99;
 }
 .left-show{
-
   width: 187px;
-  position: absolute;
-  top: 80px;
+  position: relative;
   left: 0;
   transition: all 1.5s;
+  z-index: 99;
 }
 
 

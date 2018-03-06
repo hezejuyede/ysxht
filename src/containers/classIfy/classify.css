@@ -1,8 +1,60 @@
-.classify{
+.ysx-classify{
+  overflow-x: hidden;
+  position: relative;
+
+}
+
+#classify>div{
   width: 95%;
   margin: 0 auto;
-  padding-left: 100px;
+  height: 100%;
+  background-color: #ffffff;
 }
+
+
+
+.classify{
+  width: 100%;
+  position: absolute;
+  top:80px;
+  left:0;
+  background-color: #ffffff;
+  transition: all 1.5s;
+}
+
+.rightMove5{
+  width: 100%;
+  position: absolute;
+  top:80px;
+  left: 187px;
+  background-color: #ffffff;
+  transition: all 1.5s;
+}
+
+.classify-div{
+  background-color: #ffffff;
+  border: 1px solid#000000;
+}
+.classify-title{
+  height: 30px;
+
+}
+
+
+.classify-title-left{
+  float: left;
+  font-size: 16px;
+  margin-top: 7px;
+  margin-left: 50px;
+}
+
+.classify-title-right{
+  float: right;
+  font-size: 16px;
+  margin-top: 7px;
+  margin-right: 50px;
+}
+
 .classify-top{
   height: 30px;
   margin: 10px auto 0 auto;
@@ -50,6 +102,10 @@
 }
 
 @media screen and (min-width: 500px){
+  .classify-title{
+    width: 500px;
+    margin: 0 auto;
+  }
   .classify-top{
     width: 500px;
     margin: 10px auto 0 auto;

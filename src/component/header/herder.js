@@ -6,10 +6,11 @@ import '../../common/icon/iconfont.css'
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as iconState from '../../redux/actions/actions'
+import * as actions from '../../redux/actions/actions'
 
 
 class header extends Component {
+    //context可以跨组件传递数据
     constructor(props, context) {
         super(props, context);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
@@ -17,7 +18,8 @@ class header extends Component {
             userName: Object,
             userAvatar: Object,
             icon: true,
-            iconActions: Object
+            changeLeft:Object
+
         }
     }
 
@@ -90,16 +92,21 @@ class header extends Component {
 
     openCloseLeft() {
         if (this.state.icon === true) {
-
             this.setState({
                 icon: false
+            });
+            this.props.changeLeft.leftMove({
+                iconState:true
 
             });
         }
         else if (this.state.icon === false) {
-
             this.setState({
                 icon: true
+            });
+            this.props.changeLeft.rightMove({
+                iconState:false
+
             });
         }
     }
@@ -113,27 +120,15 @@ class header extends Component {
 
 // -------------------redux react 绑定--------------------
 
-//数据绑定，建立一个从外部state到UI组件props的映射，参数是state，简单返回你关心的几个值。
 function mapStateToProps(state) {
-    console.log(state.iconState);
-
-    return {
-        text: state.iconState
-    }
-
+    return {}
 }
-
-//事件绑定，定义UI组件的参数到dispatch方法的映射
 
 function mapDispatchToProps(dispatch) {
     return {
-        //通过dispatch将action包裹起来，这样可以通过bindActionCreators创建的方法，直接调用dispatch(action)(隐式调用）子组件未察觉redux的情况下，将dispatch传递给子组件。
-        iconActions: bindActionCreators(iconState, dispatch),
-
+        changeLeft: bindActionCreators(actions, dispatch),
     }
 }
-
-//connect: 连接容器组件和UI组件，接受两个参数（数据绑定mapStateToProps和事件绑定mapDispatchToProps），再接受一个参数（将要绑定的组件本身）：
 export default connect(
     mapStateToProps,
     mapDispatchToProps

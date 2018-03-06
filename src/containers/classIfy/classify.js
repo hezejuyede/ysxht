@@ -7,57 +7,64 @@ import Left from '../../component/left/left'
 import NoLogin from '../../component/Nologin/Nologin'
 import axios from 'axios';
 import PureRenderMixin from 'react-addons-pure-render-mixin'
-
-class userInfos extends Component {
+import { connect } from 'react-redux'
+class classify extends Component {
     constructor(props, context) {
         super(props, context);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {
             data: [],
-            userinfoState:false
+            userinfoState:false,
+            leftState: this.props.iconState.iconState.iconState
         }
     }
     render() {
         const classify = this.state.data;
         return (
-            this.state.userinfoState ?  <div className="ysx-classify">
-                <Header/>
-                <Left/>
-                <div className="classify">
-                    <div className="classify-title">
-                        <div className="classify-title-left">
-
-                        </div>
-                        <div className="classify-title-right">
-
-                        </div>
-                    </div>
-                    <div className="classify-top">
-                        <div className="classify-top-ID">ID</div>
-                        <div className="classify-top-name">品类名称</div>
-                        <div className="classify-top-cz">操作</div>
-                    </div>
-                    <div className="classify-bottom">
-                        {classify.map((item, index) => {
-                            return <div className="classify-bottom-template">
-                                <div className="classify-bottom-ID">{item.id}</div>
-                                <div className="classify-bottom-name">
-                                    {item.goodsName}
+            this.state.userinfoState
+                ?
+                <div className="ysx-classify">
+                    <Header/>
+                    <Left/>
+                    <div id="" className={this.state.leftState ? "rightMove5" : "classify"}>
+                        <div>
+                            <div className="classify-title">
+                                <div className="classify-title-left">
+                                    商品品类
                                 </div>
-                                <div className="classify-bottom-cz">
+                                <div className="classify-title-right">
+                                    添加品类
+                                </div>
+                            </div>
+                            <div className="classify-top">
+                                <div className="classify-top-ID">ID</div>
+                                <div className="classify-top-name">品类名称</div>
+                                <div className="classify-top-cz">操作</div>
+                            </div>
+                            <div className="classify-bottom">
+                                {classify.map((item, index) => {
+                                    return <div key={index} className="classify-bottom-template">
+                                        <div className="classify-bottom-ID">{item.id}</div>
+                                        <div className="classify-bottom-name">
+                                            {item.goodsName}
+                                        </div>
+                                        <div className="classify-bottom-cz">
                                 <span className="classify-bottom-cz-xg">
                                     修改
                                 </span>
-                                    <span className="classify-bottom-cz-xg">
+                                            <span className="classify-bottom-cz-xg">
                                     查看子品类
                                 </span>
-                                </div>
+                                        </div>
+                                    </div>
+                                })}
                             </div>
-                        })}
+                        </div>
                     </div>
+                    <Footer/>
                 </div>
-                <Footer/>
-            </div> :<NoLogin/>
+                :
+                <NoLogin/>
         );
     }
     componentWillMount() {
@@ -90,6 +97,28 @@ class userInfos extends Component {
         }
 
     };
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            leftState: nextProps.iconState.iconState.iconState,
+        });
+    }
 }
 
-export default userInfos;
+
+
+function mapStateToProps(state) {
+
+    return {
+        iconState: state
+    }
+
+}
+
+function mapDispatchToProps(dispatch) {
+    return {}
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(classify)

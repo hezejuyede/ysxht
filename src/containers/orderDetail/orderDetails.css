@@ -1,14 +1,34 @@
+.ysx-orderDetail{
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+}
+
+.rightMove2{
+  width: 100%;
+  position: absolute;
+  top:80px;
+  left: 187px;
+  transition: all 1.5s;
+}
+
 .myOrderDetail{
-  width: 95%;
-  margin: 0 auto;
+  width: 100%;
+  position: absolute;
+  top:80px;
+  left:0;
+  transition: all 1.5s;
 }
 .myOrderDetail-top{
   font-size: 30px;
   margin: 10px auto;
-  padding-left: 100px;
+  padding-left: 20px;
 }
 .myOrderDetail-bottom{
-  padding-left: 100px;
+  width: 95%;
+  margin: 0 auto;
 }
 .myOrderDetail-bottom-div{
   height: 60px;
@@ -16,7 +36,7 @@
   display: flex;
 }
 .myOrderDetail-bottom-div>div:first-child{
-  flex: 2;
+  flex: 1;
   line-height: 60px;
   text-align: right;
   color: #3EC455;
@@ -32,6 +52,9 @@
   justify-content: center;
   overflow: hidden;
 }
+
+
+
 .myOrderDetail-bottom-div button{
   width: 80px;
   height: 30px;
@@ -48,8 +71,10 @@
   margin-right: 5px;
 }
 .OrderDetail-div{
-  width: 99%;
- border: 1px solid#f0f0f0;
+  width: 95%;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border: 1px solid#ffffff;
 }
 .OrderDetail-div-top{
   height: 30px;

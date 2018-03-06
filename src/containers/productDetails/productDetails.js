@@ -2,11 +2,10 @@ import React, {Component} from 'react';
 import './productDetails.css'
 import axios from 'axios';
 import PureRenderMixin from 'react-addons-pure-render-mixin'
-
+import { connect } from 'react-redux'
 
 
 import Header from '../../component/header/herder'
-import Footer from '../../component/footer/footer'
 import Left from '../../component/left/left'
 import NoLogin from '../../component/Nologin/Nologin'
 
@@ -18,7 +17,8 @@ class productDetails extends Component {
             productInfo: [],
             productImg:[],
             productDetailImg:[],
-            userinfoState: false
+            userinfoState: false,
+            leftState: this.props.iconState.iconState.iconState
         }
     }
 
@@ -26,60 +26,69 @@ class productDetails extends Component {
         const productImg = this.state.productImg;
         const productInfo = this.state.productInfo;
         return (
-            this.state.userinfoState ? <div className="ysx-productDetails">
-                <Header/>
-                <Left/>
-                <div className="productDetails">
-                    <div className="productDetails-template">
-                        {productInfo.map((item, index) => {
-                            return <div key={index} className="">
-                                <div className="productDetails-name">
-                                    <p className="leftP">商品名称:</p>
-                                    <p className="rightP">{item.name}</p>
-                                </div>
-                                <div className="productDetails-ms">
-                                    <p className="leftP">商品描述:</p>
-                                    <p className="rightP">{item.gg}</p>
-                                </div>
-                                <div className="productDetails-state">
-                                    <p className="leftP">当前状态</p>
-                                    <p className="rightP">在售</p>
-                                </div>
-                                <div className="productDetails-classify">
-                                    <p className="leftP">商品分类</p>
-                                    <p className="rightP">{item.fl}</p>
-                                </div>
-                                <div className="productDetails-price">
-                                    <p className="leftP">商品价格</p>
-                                    <p className="rightP">￥{item.price}</p>
-                                </div>
-                                <div className="productDetails-number">
-                                    <p className="leftP">商品库存</p>
-                                    <p className="rightP">{item.number}</p>
-                                </div>
-                                <div className="productDetails-img">
-                                    <p className="p-img-left">商品图片</p>
-                                    <div className="p-img-right">
-                                        <img src={item.img}/>
+            this.state.userinfoState
+                ?
+                <div className="ysx-productDetails">
+                    <Header/>
+                    <Left/>
+                    <div className={this.state.leftState ? "rightMove4": "productDetails"}>
+                        <div className="productDetails-template">
+                            {productInfo.map((item, index) => {
+                                return <div key={index} className="">
+                                    <div className="productDetails-name">
+                                        <p className="leftP">商品名称:</p>
+                                        <p className="rightP">{item.name}</p>
+                                    </div>
+                                    <div className="productDetails-ms">
+                                        <p className="leftP">商品描述:</p>
+                                        <p className="rightP">{item.gg}</p>
+                                    </div>
+                                    <div className="productDetails-state">
+                                        <p className="leftP">当前状态</p>
+                                        <p className="rightP">在售</p>
+                                    </div>
+                                    <div className="productDetails-classify">
+                                        <p className="leftP">商品分类</p>
+                                        <p className="rightP">{item.fl}</p>
+                                    </div>
+                                    <div className="productDetails-price">
+                                        <p className="leftP">商品价格</p>
+                                        <p className="rightP">￥{item.price}</p>
+                                    </div>
+                                    <div className="productDetails-number">
+                                        <p className="leftP">商品库存</p>
+                                        <p className="rightP">{item.number}</p>
+                                    </div>
+                                    <div className="productDetails-img">
+                                        <p className="p-img-left">商品图片</p>
+                                        <div className="p-img-right">
+                                            <img src={item.img}/>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        })}
-                        <div className="productDetails-template-xq">
-                            <p className="template-xq-top">商品详情</p>
-
-                            {productImg.map((item, index) => {
-                                return <div key={index} className="template-xq-bottom">
-                                    <img src={item.pimg} alt=""/>
-                                </div>
                             })}
+                            <div className="productDetails-template-xq">
+                                <p className="template-xq-top">商品详情</p>
 
+                                {productImg.map((item, index) => {
+                                    return <div key={index} className="template-xq-bottom">
+                                        <img src={item.pimg} alt=""/>
+                                    </div>
+                                })}
+
+                            </div>
                         </div>
                     </div>
                 </div>
-                <Footer/>
-            </div> : <NoLogin/>
+                :
+                <NoLogin/>
         );
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            leftState: nextProps.iconState.iconState.iconState,
+        });
     }
 
     componentDidMount() {
@@ -133,4 +142,20 @@ class productDetails extends Component {
     };
 }
 
-export default productDetails;
+
+function mapStateToProps(state) {
+
+    return {
+        iconState: state
+    }
+
+}
+
+function mapDispatchToProps(dispatch) {
+    return {}
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(productDetails)

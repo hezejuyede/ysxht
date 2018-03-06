@@ -6,6 +6,8 @@ import Header from '../../component/header/herder'
 import Footer from '../../component/footer/footer'
 import Left from '../../component/left/left'
 import NoLogin from '../../component/Nologin/Nologin'
+import { connect } from 'react-redux'
+
 
 class userInfos extends Component {
     constructor(props, context) {
@@ -13,7 +15,8 @@ class userInfos extends Component {
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {
             admUserList: [],
-            userinfoState: false
+            userinfoState: false,
+            leftState: this.props.iconState.iconState.iconState
         }
     }
 
@@ -21,59 +24,62 @@ class userInfos extends Component {
         const admUserList = this.state.admUserList;
         return (
 
-            this.state.userinfoState ? <div className="className">
-                <Header/>
-                <Left/>
-                <div className="ysx-userInfos">
-                    <div className="ysx-userInfos-top">
-                        用户管理
-                    </div>
-                    <div className="ysx-userInfos-bottom">
-                        <div className="bottom-top">
-                            <p className="user-id">ID</p>
-                            <p className="user-name">用户名</p>
-                            <p className="user-email">邮箱</p>
-                            <p className="user-phone">电话</p>
+            this.state.userinfoState
+                ?
+                <div className="yc-userInfo">
+                    <Header/>
+                    <Left/>
+                    <div className={this.state.leftState ? "rightMove7" : "ysx-userInfos-div"}>
+                        <div className="ysx-userInfos-top">
+                            用户管理
                         </div>
-                        <div className="bottom-center">
-                            {admUserList.map((item, index) => {
-                                return <div key={index} className="user-template">
-                                    <p className="user-id">{item._id}</p>
-                                    <p className="user-name">{item.username}</p>
-                                    <p className="user-email">{item.email}</p>
-                                    <p className="user-phone">{item.phone}</p>
+                        <div className="ysx-userInfos-bottom">
+                            <div className="bottom-top">
+                                <p className="user-id">ID</p>
+                                <p className="user-name">用户名</p>
+                                <p className="user-email">邮箱</p>
+                                <p className="user-phone">电话</p>
+                            </div>
+                            <div className="bottom-center">
+                                {admUserList.map((item, index) => {
+                                    return <div key={index} className="user-template">
+                                        <p className="user-id">{item._id}</p>
+                                        <p className="user-name">{item.username}</p>
+                                        <p className="user-email">{item.email}</p>
+                                        <p className="user-phone">{item.phone}</p>
+                                    </div>
+                                })}
+
+
+                            </div>
+                            <div className="bottom-bottom">
+                                <div className="">
+                                    <i className="iconfont icon-left-trangle"></i>
                                 </div>
-                            })}
-
-
-                        </div>
-                        <div className="bottom-bottom">
-                            <div className="">
-                                <i className="iconfont icon-left-trangle"></i>
-                            </div>
-                            <div className="blue">
-                                1
-                            </div>
-                            <div className="">
-                                2
-                            </div>
-                            <div className="">
-                                3
-                            </div>
-                            <div className="">
-                                ...
-                            </div>
-                            <div className="">
-                                199
-                            </div>
-                            <div className="">
-                                <i className="iconfont icon-right-trangle"></i>
+                                <div className="blue">
+                                    1
+                                </div>
+                                <div className="">
+                                    2
+                                </div>
+                                <div className="">
+                                    3
+                                </div>
+                                <div className="">
+                                    ...
+                                </div>
+                                <div className="">
+                                    199
+                                </div>
+                                <div className="">
+                                    <i className="iconfont icon-right-trangle"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <Footer/>
                 </div>
-                <Footer/>
-            </div> : <NoLogin/>
+                : <NoLogin/>
         );
     }
 
@@ -81,6 +87,12 @@ class userInfos extends Component {
         this._getUserOrder();
 
     };
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            leftState: nextProps.iconState.iconState.iconState,
+        });
+    }
 
     _getUserOrder() {
         let NowUserStates = localStorage.getItem("UserStates");
@@ -106,4 +118,19 @@ class userInfos extends Component {
     };
 }
 
-export default userInfos;
+function mapStateToProps(state) {
+
+    return {
+        iconState: state
+    }
+
+}
+
+function mapDispatchToProps(dispatch) {
+    return {}
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(userInfos)

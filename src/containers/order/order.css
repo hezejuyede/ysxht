@@ -1,11 +1,44 @@
-.myOrder {
-  width: 95%;
-  margin: 0 auto;
-  padding-left: 100px;
+.ysx-order{
+  overflow-x: hidden;
+  position: relative;
+
 }
+
+
+
+#myOrder > div {
+  width: 100%;
+  height: 100%;
+  padding-top: 10px;
+  background-color: #ffffff;
+}
+
+
+
+.rightMove1{
+  width: 100%;
+  height: 455px;
+  position: absolute;
+  top: 80px;
+  left: 187px;
+  transition: all 1.5s;
+}
+
+.myOrder {
+  width: 100%;
+  height: 455px;
+  position: absolute;
+  top:80px;
+  left: 0;
+  transition: all 1.5s;
+}
+
+
+
+
 .myOrder-title{
   font-size: 20px;
-  margin: 10px auto;
+  margin: 0 auto;
   padding-left: 10%;
 }
 .myOrder-select{
