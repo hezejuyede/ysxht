@@ -35,6 +35,8 @@
 .ysx-setUp-big{
   height: 400px;
   width: 500px;
+  margin-top: 50px;
+  border-radius: 5%;
   background-color: #ffffff;
   display: flex;
   align-content: center;

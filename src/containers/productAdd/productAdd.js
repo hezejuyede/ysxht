@@ -60,7 +60,8 @@ class productAdd extends Component {
                                         <p>商品名称:</p>
                                     </div>
                                     <div className="productAdd-bottom-div-right">
-                                        <input type="text" value={this.state.name} onChange={this.name}/>
+                                        <input type="text"
+                                               value={this.state.name} onChange={this.name}/>
                                     </div>
                                 </div>
                                 <div className="productAdd-bottom-div">

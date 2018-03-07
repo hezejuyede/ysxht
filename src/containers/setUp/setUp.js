@@ -5,6 +5,7 @@ import Footer from '../../component/footer/footer'
 import Left from '../../component/left/left'
 import NoLogin from '../../component/Nologin/Nologin'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
+import Modal from '../../component/modal/modal'
 
 import { connect } from 'react-redux'
 
@@ -14,13 +15,19 @@ class setUp extends Component {
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {
             userinfoState: false,
-            leftState: this.props.iconState.iconState.iconState
+            leftState: this.props.iconState.iconState.iconState,
+            ModalMessage:"",
+            showHideModal:false,
         }
     }
     render() {
         return (
-            this.state.userinfoState ?
+            this.state.userinfoState
+                ?
                 <div className="setUp">
+                    <Modal
+                        ModalMessage={this.state.ModalMessage}
+                        showHideModal={this.state.showHideModal} />
                     <Header/>
                     <Left/>
                     <div className={this.state.leftState ? "rightMove" : "ysx-setUp"}>
@@ -34,7 +41,7 @@ class setUp extends Component {
                                         <input type="text" placeholder="昵称"/>
                                     </div>
                                     <div className="div-input-right">
-                                        <span>修改</span>
+                                        <span onClick={this.changeId.bind(this)}>修改</span>
                                     </div>
                                 </div>
                                 <div className="div-input">
@@ -45,7 +52,7 @@ class setUp extends Component {
                                         <input type="text" placeholder="手机号"/>
                                     </div>
                                     <div className="div-input-right">
-                                        <span>修改</span>
+                                        <span onClick={this.changePhoneNumber.bind(this)}>修改</span>
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +83,8 @@ class setUp extends Component {
                     </div>
                     <Footer/>
                 </div>
-                : <NoLogin/>
+                :
+                <NoLogin/>
 
         );
     }
@@ -104,6 +112,12 @@ class setUp extends Component {
 
         }
     };
+    changeId(){
+
+    }
+    changePhoneNumber(){
+
+    }
 }
 
 
